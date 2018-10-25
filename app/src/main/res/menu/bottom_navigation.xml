@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_cardapio"
+        android:enabled="true"
+        android:icon="@drawable/cardapio_icon"
+        android:title="@string/tab_cardapio"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_creditos"
+        android:enabled="true"
+        android:icon="@drawable/creditos_icon"
+        android:title="@string/tab_creditos"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_avaliacao"
+        android:enabled="true"
+        android:icon="@drawable/avaliacao_icon"
+        android:title="@string/tab_avaliacao"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_menu"
+        android:enabled="true"
+        android:icon="@drawable/baseline_menu_black_24dp"
+        android:title="@string/tab_menu"
+        app:showAsAction="ifRoom" />
+
+</menu>

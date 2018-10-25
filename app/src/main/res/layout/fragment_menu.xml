@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <include layout="@layout/toolbar_default"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_gray">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="11.1dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Meu espaço"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/clickable_profile"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:id="@+id/fragment_menu_iv_documentspicture"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:tint="@color/colorPrimaryDark"
+                    android:src="@drawable/notification_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toRightOf="@+id/fragment_menu_iv_documentspicture"
+                    android:fontFamily="sans-serif-regular"
+                    android:text="Histórico de notificações"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14.1sp"/>
+
+                <ImageView
+                    android:id="@+id/fragment_menu_iv_documentsnext"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/disclosure_menu"
+                    android:tint="@color/text_gray"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+            android:id="@+id/clickable_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF">
+
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_marginLeft="36dp"
+                android:alpha="0.5"
+                android:background="@color/text_gray"></View>
+
+                <ImageView
+                android:id="@+id/fragment_menu_image_password"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/news_icon"
+                android:tint="@color/colorPrimaryDark" />
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@id/fragment_menu_image_password"
+                android:fontFamily="sans-serif-regular"
+                android:text="Notícias do RU"
+                android:textColor="@color/text_gray"
+                android:textSize="14.1sp" />
+
+                <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/disclosure_menu"
+                android:tint="@color/text_gray" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginLeft="36dp"
+                    android:alpha="0.5"
+                    android:background="@color/text_gray"></View>
+
+                <ImageView
+                    android:id="@+id/menu_infos"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/news_icon"
+                    android:tint="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toRightOf="@id/menu_infos"
+                    android:fontFamily="sans-serif-regular"
+                    android:text="Informações do RU"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14.1sp" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/disclosure_menu"
+                    android:tint="@color/text_gray" />
+
+
+            </RelativeLayout>
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/clickable_cards"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:background="#FFFFFF">-->
+
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.7dp"-->
+            <!--android:layout_marginLeft="36dp"-->
+            <!--android:background="@color/text_gray"-->
+            <!--android:alpha="0.5"></View>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/fragment_menu_image_cards"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@drawable/card"-->
+            <!--android:tint="@color/purple"/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_toRightOf="@id/fragment_menu_image_cards"-->
+            <!--android:fontFamily="sans-serif-regular"-->
+            <!--android:text="@string/menu_cards"-->
+            <!--android:textColor="@color/text_gray"-->
+            <!--android:textSize="14.1sp"/>-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="14dp"-->
+            <!--android:layout_height="14dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@drawable/disclosure_menu"-->
+            <!--android:tint="@color/text_gray"/>-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/clickable_history"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:background="#FFFFFF">-->
+
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.7dp"-->
+            <!--android:layout_marginLeft="36dp"-->
+            <!--android:background="@color/text_gray"-->
+            <!--android:alpha="0.5"></View>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/fragment_menu_image_history"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@drawable/history"-->
+            <!--android:tint="@color/purple"/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_toRightOf="@id/fragment_menu_image_history"-->
+            <!--android:fontFamily="sans-serif-regular"-->
+            <!--android:text="@string/menu_history"-->
+            <!--android:textColor="@color/text_gray"-->
+            <!--android:textSize="14.1sp"/>-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="14dp"-->
+            <!--android:layout_height="14dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@drawable/disclosure_menu"-->
+            <!--android:tint="@color/text_gray"/>-->
+
+
+
+            <!--</RelativeLayout>-->
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="18.9dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ADMINISTRADOR"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_gray" />
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/clickable_desires"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:layout_marginTop="6dp">
+
+
+                <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.7dp"-->
+                <!--android:layout_marginLeft="36dp"-->
+                <!--android:background="@color/text_gray"-->
+                <!--android:alpha="0.5"></View>-->
+
+                <ImageView
+                    android:id="@+id/fragment_menu_image_desires"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/admin_icon"
+                    android:tint="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toRightOf="@id/fragment_menu_image_desires"
+                    android:fontFamily="sans-serif-regular"
+                    android:text="Painel do administrador"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14.1sp"/>
+
+                <ImageView
+                    android:id="@+id/fragment_menu_desire_imagenext"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/disclosure_menu"
+                    android:tint="@color/text_gray"/>
+
+            </RelativeLayout>
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/clickable_promotions"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:background="#FFFFFF">-->
+
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.7dp"-->
+            <!--android:layout_marginLeft="36dp"-->
+            <!--android:background="@color/text_gray"-->
+            <!--android:alpha="0.5"></View>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/fragment_menu_image_promotions"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@drawable/fire"-->
+            <!--android:tint="@color/purple"/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_toRightOf="@id/fragment_menu_image_promotions"-->
+            <!--android:fontFamily="sans-serif-regular"-->
+            <!--android:text="@string/menu_promotions"-->
+            <!--android:textColor="@color/text_gray"-->
+            <!--android:textSize="14.1sp"/>-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="14dp"-->
+            <!--android:layout_height="14dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@drawable/disclosure_menu"-->
+            <!--android:tint="@color/text_gray"/>-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/clickable_accesses"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:background="#FFFFFF">-->
+
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.7dp"-->
+            <!--android:layout_marginLeft="36dp"-->
+            <!--android:background="@color/text_gray"-->
+            <!--android:alpha="0.5"></View>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/fragment_menu_image_accesses"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@drawable/ticket_purple"-->
+            <!--android:tint="@color/purple"/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_toRightOf="@id/fragment_menu_image_accesses"-->
+            <!--android:fontFamily="sans-serif-regular"-->
+            <!--android:text="@string/menu_accesses"-->
+            <!--android:textColor="@color/text_gray"-->
+            <!--android:textSize="14.1sp"/>-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="14dp"-->
+            <!--android:layout_height="14dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@drawable/disclosure_menu"-->
+            <!--android:tint="@color/text_gray"/>-->
+
+            <!--</RelativeLayout>-->
+
+
+
+            <Button
+                android:id="@+id/menu_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                android:layout_marginBottom="15dp"
+                android:text="DESLOGAR"
+                android:textAllCaps="false"
+                android:textSize="14.1sp"
+                android:textColor="@color/colorPrimary"/>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

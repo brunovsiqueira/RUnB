@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RUnB</string>
+    <string name="tab_cardapio">Cardápio</string>
+    <string name="tab_creditos">Créditos</string>
+    <string name="tab_avaliacao">Avaliação</string>
+    <string name="tab_menu">Menu</string>
+
+</resources>
