@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.credito.CardActivity"/>
+        <activity android:name=".screens.credito.CreditoActivity"/>
+        <activity android:name=".screens.credito.card.PaymentActivity"/>
     </application>
 
 </manifest>

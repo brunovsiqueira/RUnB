@@ -46,7 +46,7 @@ public class CreditoFragment extends Fragment {
     View.OnClickListener loginClickListener =  new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            startActivity(new Intent(getActivity(), CardActivity.class));
+            startActivity(new Intent(getActivity(), CreditoActivity.class));
         }
     };
 
