@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".screens.credito.CreditoActivity"/>
         <activity android:name=".screens.credito.card.PaymentActivity"/>
+        <activity android:name=".screens.credito.card.ChooseCardTypeActivity"/>
     </application>
 
 </manifest>

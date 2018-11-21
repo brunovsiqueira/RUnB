@@ -11,10 +11,14 @@ public class PaymentActivity extends BasicActvity {
 
     private TextView toolbarTitle;
 
+    private String cardType;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+        cardType = getIntent().getStringExtra("card_type");
 
         findViewItems();
     }

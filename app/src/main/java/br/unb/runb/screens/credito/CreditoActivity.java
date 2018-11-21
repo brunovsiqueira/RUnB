@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
+import br.unb.runb.screens.credito.card.ChooseCardTypeActivity;
 import br.unb.runb.screens.credito.card.PaymentActivity;
 
 public class CreditoActivity extends BasicActvity {
@@ -38,7 +39,7 @@ public class CreditoActivity extends BasicActvity {
         @Override
         public void onClick(View v) {
 
-            startActivity(new Intent(CreditoActivity.this, PaymentActivity.class));
+            startActivity(new Intent(CreditoActivity.this, ChooseCardTypeActivity.class));
 
         }
     };
