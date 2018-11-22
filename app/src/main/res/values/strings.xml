@@ -5,4 +5,11 @@
     <string name="tab_avaliacao">Avaliação</string>
     <string name="tab_menu">Menu</string>
 
+    <string name="register_card_code_error">Código de segurança inválido</string>
+    <string name="register_card_number_error">Número do cartão inválido</string>
+    <string name="register_card_date_error">Data inválida</string>
+    <string name="register_card_name_error">Nome no cartão inválido</string>
+    <string name="register_card_button_text">Cadastrar cartão</string>
+    <string name="register_card_user_infos">Informações do titular</string>
+
 </resources>

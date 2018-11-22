@@ -7,7 +7,7 @@
     <color name="black">#000000</color>
     <color name="red_app">#FF1500</color>
     <color name="text_gray">#717171</color>
-    <color name="light_gray">#e0e0e0</color>
+    <color name="light_gray">#bdbdbd</color>
     <color name="semi_white">#EEEEEE</color>
 
 </resources>
