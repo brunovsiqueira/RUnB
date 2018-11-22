@@ -72,14 +72,47 @@ public class PaymentActivity extends BasicActvity {
     }
 
     private void HardcodedFillView() {
-        cardNumber.setText("5525741907405819");
-        cardName.setText("asjaa asjasjasja");
-        securityNumber.setText("543");
-        cardDate.setText("08/20");
+        cardNumber.setText("0000000000000001");
+        //cardName.setText("Nome Teste");
+        securityNumber.setText("123");
+        cardDate.setText("12/2018");
     }
 
-    private void createJsonPayment() {
+    private JsonObject createPaymentJson() {
 
+        JsonObject customer = new JsonObject();
+        JsonObject payment = new JsonObject();
+        JsonObject completeJson = new JsonObject();
+
+        customer.addProperty("Name", "Comprador teste"); //TODO: futuramente nome do usuario
+
+        payment.addProperty("Type", cardType);
+        payment.addProperty("Amount", Integer.valueOf(textAmount.getText().toString()));
+        payment.addProperty("Provider", "Simulado"); //TODO: Simulado apenas no Sandbox
+        payment.addProperty("ReturnUrl", "https://www.cielo.com.br");
+        payment.addProperty("Installments", 0);
+        if (cardType.equalsIgnoreCase("debitCard")) {
+            payment.addProperty("Authenticate", true);
+        } else if  (cardType.equalsIgnoreCase("creditCard")) {
+            //payment.addProperty("Authenticate", false);
+        }
+        JsonObject card = new JsonObject();
+        card.addProperty("CardNumber", Integer.valueOf(cardNumber.getText().toString()));
+        payment.addProperty("Holder", cardName.getText().toString());
+        payment.addProperty("ExpirationDate", 12/2018);
+        payment.addProperty("SecurityCode", securityNumber.getText().toString());
+        payment.addProperty("Brand", "Visa"); //TODO: Add correct brand (spinner)
+        if (cardType.equalsIgnoreCase("debitCard")) {
+            payment.add("debitCard", card);
+        } else if  (cardType.equalsIgnoreCase("creditCard")) {
+            payment.add("creditCard", card);
+        }
+
+        completeJson.addProperty("MerchantOrderId", 2014111903); //TODO: generate correctly
+        completeJson.add("Customer", customer);
+        completeJson.add("Payment", payment);
+
+        return completeJson;
     }
 
     public void updateView(String cardNumber, String cardName, String cardDate) {
@@ -220,6 +253,7 @@ public class PaymentActivity extends BasicActvity {
         public void onClick(View v) {
             if (validates()) {
                 //createJsonCard();
+
                 //make request
             }
         }
