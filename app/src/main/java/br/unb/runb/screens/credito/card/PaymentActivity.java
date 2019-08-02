@@ -1,18 +1,36 @@
 package br.unb.runb.screens.credito.card;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.Future;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
+import com.shashank.sony.fancydialoglib.FancyAlertDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.NumberFormat;
 
@@ -22,6 +40,7 @@ import br.unb.runb.util.FormatterString;
 import br.unb.runb.util.Mask;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
+import okhttp3.OkHttpClient;
 
 public class PaymentActivity extends BasicActvity {
 
@@ -47,6 +66,10 @@ public class PaymentActivity extends BasicActvity {
         setContentView(R.layout.activity_payment);
 
         cardType = getIntent().getStringExtra("card_type");
+//        OkHttpClient okHttpClient = new OkHttpClient() .newBuilder()
+//                .addNetworkInterceptor(new StethoInterceptor())
+//                .build();
+        AndroidNetworking.initialize(getApplicationContext());
 
         findViewItems();
     }
@@ -69,49 +92,56 @@ public class PaymentActivity extends BasicActvity {
         cardDate.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_DATE, cardDate));
         textAmount.addTextChangedListener(amountChangedListener);
 
+        //HardcodedFillView();
+
     }
 
     private void HardcodedFillView() {
-        cardNumber.setText("0000000000000001");
-        //cardName.setText("Nome Teste");
+        cardNumber.setText("1234123412341231");
+        cardName.setText("Nome Teste");
         securityNumber.setText("123");
         cardDate.setText("12/2018");
     }
 
-    private JsonObject createPaymentJson() {
+    private JSONObject createPaymentJson() {
 
-        JsonObject customer = new JsonObject();
-        JsonObject payment = new JsonObject();
-        JsonObject completeJson = new JsonObject();
+        JSONObject customer = new JSONObject();
+        JSONObject payment = new JSONObject();
+        JSONObject completeJson = new JSONObject();
 
-        customer.addProperty("Name", "Comprador teste"); //TODO: futuramente nome do usuario
+        try {
+            customer.put("Name", "Comprador teste"); //TODO: futuramente nome do usuario
 
-        payment.addProperty("Type", cardType);
-        payment.addProperty("Amount", Integer.valueOf(textAmount.getText().toString()));
-        payment.addProperty("Provider", "Simulado"); //TODO: Simulado apenas no Sandbox
-        payment.addProperty("ReturnUrl", "https://www.cielo.com.br");
-        payment.addProperty("Installments", 0);
+
+        payment.put("Type", cardType);
+        payment.put("Amount", Integer.parseInt(FormatterString.onlyDigits(textAmount.getText().toString())));
+        payment.put("Provider", "Simulado"); //TODO: Simulado apenas no Sandbox
+        payment.put("ReturnUrl", "https://www.cielo.com.br");
+        payment.put("Installments", 1);
         if (cardType.equalsIgnoreCase("debitCard")) {
-            payment.addProperty("Authenticate", true);
+            payment.put("Authenticate", true);
         } else if  (cardType.equalsIgnoreCase("creditCard")) {
             //payment.addProperty("Authenticate", false);
         }
-        JsonObject card = new JsonObject();
-        card.addProperty("CardNumber", Integer.valueOf(cardNumber.getText().toString()));
-        payment.addProperty("Holder", cardName.getText().toString());
-        payment.addProperty("ExpirationDate", 12/2018);
-        payment.addProperty("SecurityCode", securityNumber.getText().toString());
-        payment.addProperty("Brand", "Visa"); //TODO: Add correct brand (spinner)
+        JSONObject card = new JSONObject();
+        card.put("CardNumber", cardNumber.getText().toString());
+        card.put("Holder", cardName.getText().toString());
+        card.put("ExpirationDate", cardDate.getText().toString());
+        card.put("SecurityCode", securityNumber.getText().toString());
+        card.put("Brand", "Visa"); //TODO: Add correct brand (spinner)
         if (cardType.equalsIgnoreCase("debitCard")) {
-            payment.add("debitCard", card);
-        } else if  (cardType.equalsIgnoreCase("creditCard")) {
-            payment.add("creditCard", card);
+            payment.put("DebitCard", card);
+        } else if  (cardType.equalsIgnoreCase("CreditCard")) {
+            payment.put("CreditCard", card);
         }
 
-        completeJson.addProperty("MerchantOrderId", 2014111903); //TODO: generate correctly
-        completeJson.add("Customer", customer);
-        completeJson.add("Payment", payment);
+        completeJson.put("MerchantOrderId", 2014111903); //TODO: generate correctly
+        completeJson.put("Customer", customer);
+        completeJson.put("Payment", payment);
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return completeJson;
     }
 
@@ -253,8 +283,62 @@ public class PaymentActivity extends BasicActvity {
         public void onClick(View v) {
             if (validates()) {
                 //createJsonCard();
+                JSONObject jsonObject = createPaymentJson();
 
-                //make request
+                final ProgressDialog pd = new ProgressDialog(PaymentActivity.this);
+                pd.show(PaymentActivity.this, "Carregando", "Efetuando pagamento...");
+
+                AndroidNetworking.post("https://apisandbox.cieloecommerce.cielo.com.br/1/sales")
+                        .addJSONObjectBody(jsonObject)
+                        .addHeaders("merchantId", "448fcb7c-6670-4493-995d-1863671899ee")
+                        .addHeaders("merchantKey", "ZCMHARNFVOTJNWILJADFAZJUCOQBBBKVRSNRWCQU")
+                        .setPriority(Priority.HIGH)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // do anything with response
+                                try {
+                                    //Toast.makeText(PaymentActivity.this, response.getJSONObject("Payment").get("ReturnMessage").toString(), Toast.LENGTH_SHORT).show();
+                                    if (response.getJSONObject("Payment").get("ReturnMessage").toString().contains("Successful")) {
+                                        Toast.makeText(PaymentActivity.this, "Pagamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
+//                                        new FancyAlertDialog.Builder(PaymentActivity.this)
+//                                                .setTitle("Pagamento realizado com sucesso!")
+//                                                .build();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                pd.dismiss();
+                                finish();
+                            }
+                            @Override
+                            public void onError(ANError error) {
+                                // handle error
+                                pd.dismiss();
+                                if (error.getErrorCode() != 0) {
+                                    // get parsed error object (If ApiError is your class)
+
+                                } else {
+                                    // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                }
+                            }
+                        });
+//                Ion.with(PaymentActivity.this)
+//                        .load("https://apisandbox.cieloecommerce.cielo.com.br")
+//                        .uploadProgressBar(progressBar)
+//                        .setHeader("merchantId", "448fcb7c-6670-4493-995d-1863671899ee")
+//                        .setHeader("merchantKey", "ZCMHARNFVOTJNWILJADFAZJUCOQBBBKVRSNRWCQU")
+//                        .setJsonObjectBody(jsonObject)
+//                        .asJsonObject()
+//                        .setCallback(new FutureCallback<JsonObject>() {
+//                            @Override
+//                            public void onCompleted(Exception e, JsonObject result) {
+//                                Toast.makeText(PaymentActivity.this, result.getAsJsonObject("Payment").get("ReturnMessage").toString(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+
             }
         }
     };

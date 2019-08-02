@@ -158,7 +158,7 @@
         android:layout_marginBottom="17.1dp"
         android:background="@drawable/rounded_button_blue"
         android:fontFamily="sans-serif-light"
-        android:text="Efeturar Pagamento"
+        android:text="Efetuar Pagamento"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="17.1sp" />

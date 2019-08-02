@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="260dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gerar novo boleto"
+        android:textSize="22sp"
+        android:layout_marginLeft="8dp"
+
+        android:textAllCaps="false"
+        android:textColor="@color/black"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:text="Valor"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/text_gray"
+        android:layout_marginTop="16dp"/>
+    
+    <EditText
+        android:id="@+id/bill_amount"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Informe o valor em reais" />
+    
+    <Button
+        android:id="@+id/bill_generate_bill"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center"
+        android:text="Gerar boleto"
+        android:textAllCaps="false"
+        android:layout_height="70dp" />
+</LinearLayout>
