@@ -87,6 +87,7 @@
             android:text="Gerar boleto"
             android:textColor="@color/white"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:layout_marginTop="16dp"/>
 
         <Button
@@ -97,6 +98,7 @@
             android:layout_marginLeft="16dp"
             android:background="@color/colorPrimaryDark"
             android:text="Boletos em aberto"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_marginTop="16dp"/>

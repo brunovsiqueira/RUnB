@@ -75,7 +75,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-            android:id="@+id/clickable_password"
+            android:id="@+id/clickable_news"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF">

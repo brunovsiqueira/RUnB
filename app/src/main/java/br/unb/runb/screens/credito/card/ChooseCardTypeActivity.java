@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
+import br.unb.runb.util.Mask;
 
 public class ChooseCardTypeActivity extends BasicActvity {
 

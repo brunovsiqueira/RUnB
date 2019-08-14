@@ -88,7 +88,7 @@ public class PaymentActivity extends BasicActvity {
         toolbarTitle.setText("Comprar créditos");
         takePicture.setOnClickListener(pictureClickListener);
         paymentButton.setOnClickListener(paymentClickListener);
-//        cardNumber.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_NUMBER, cardNumber));
+        cardNumber.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_NUMBER, cardNumber));
         cardDate.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_DATE, cardDate));
         textAmount.addTextChangedListener(amountChangedListener);
 
