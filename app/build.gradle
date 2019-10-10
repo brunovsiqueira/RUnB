@@ -31,6 +31,9 @@ dependencies {
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.1'
 
+    //OAuth2 lib
+//    implementation 'ca.mimic:oauth2library:2.4.2'
+
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
 
     testImplementation 'junit:junit:4.12'
