@@ -10,47 +10,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_default" />
+        <!--<include layout="@layout/toolbar_default" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Saldo do cartão"
-            android:textColor="@color/black"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/black"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            android:alpha="0.3">
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="R$ 10,00"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textSize="22sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Olá, Bruno"
+            />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Recarregar seu cartão"
+            android:text="Seu saldo"
             android:textColor="@color/black"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp" />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,6 +45,93 @@
             android:alpha="0.3">
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/credito_saldo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$ 0.00"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textSize="26sp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
+
+            <ProgressBar
+                android:id="@+id/progress_saldo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/nome_refeicao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:layout_marginRight="28dp"
+            android:layout_marginLeft="28dp"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-condensed"
+            android:text="O valor da refeição para o almoço é de"
+            />
+
+        <TextView
+            android:id="@+id/valor_refeicao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:layout_marginRight="28dp"
+            android:layout_marginLeft="28dp"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-medium"
+            android:text="R$ 5,20"
+            />
+
+        <Button
+            android:id="@+id/extrato_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="consultar extrato"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:layout_marginTop="32dp" />
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="18sp"-->
+            <!--android:text="Recarregar seu cartão do RU"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginLeft="8dp"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.2dp"-->
+            <!--android:background="@color/black"-->
+            <!--android:layout_marginTop="2dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:alpha="0.3">-->
+
+        <!--</LinearLayout>-->
 
         <Button
             android:id="@+id/credito_button_card"
@@ -71,49 +141,50 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:background="@color/colorPrimaryDark"
-            android:text="Pagar com cartão"
+            android:text="RECARREGAR CARTÃO"
             android:textColor="@color/white"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:layout_marginTop="16dp"/>
 
+        <!--<Button-->
+            <!--android:id="@+id/credito_generate_bill"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:background="@color/colorPrimaryDark"-->
+            <!--android:text="Gerar boleto"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_marginTop="16dp"/>-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:background="@color/colorPrimaryDark"-->
+            <!--android:text="Boletos em aberto"-->
+            <!--android:visibility="gone"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:layout_marginTop="16dp"/>-->
+
         <Button
-            android:id="@+id/credito_generate_bill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:background="@color/colorPrimaryDark"
-            android:text="Gerar boleto"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:visibility="gone"
-            android:layout_marginTop="16dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="Boletos em aberto"
-            android:visibility="gone"
+            android:text="ACESSO REFEITÓRIO"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_marginTop="16dp"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="Transferir créditos"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_marginTop="16dp"/>
 
 
     </LinearLayout>

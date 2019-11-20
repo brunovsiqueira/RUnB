@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/semi_white">
 
-    <ProgressBar
-        android:id="@+id/determinateBar"
-        style="@android:style/Widget.Material.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_default" />
@@ -72,5 +64,13 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/determinateBar"
+        style="@android:style/Widget.Material.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
