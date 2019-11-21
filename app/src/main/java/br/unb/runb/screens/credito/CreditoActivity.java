@@ -39,6 +39,7 @@ import br.unb.runb.models.User;
 import br.unb.runb.screens.ContainerActivity;
 import br.unb.runb.screens.credito.card.ChooseCardTypeActivity;
 import br.unb.runb.screens.credito.card.PaymentActivity;
+import br.unb.runb.util.UiFunctions;
 
 public class CreditoActivity extends BasicActvity {
 
@@ -102,6 +103,7 @@ public class CreditoActivity extends BasicActvity {
                     @Override
                     public void onError(ANError anError) {
                         //{"error":"access_denied"} STATUS 400
+                        //saldo qualquer um pode ver
 //                        if (anError.getErrorCode() == 400) {
 //                            //token expirou
 //                            //TODO: testar
@@ -155,6 +157,17 @@ public class CreditoActivity extends BasicActvity {
                     @Override
                     public void onError(ANError anError) {
                         int statusCode = anError.getErrorCode();
+                        try {
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            if (jsonObject.getString("error").equalsIgnoreCase("access_denied")) {
+                                //                            //token expirou
+                                //TODO: testar
+                                UiFunctions.tokenExpired(CreditoActivity.this);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 

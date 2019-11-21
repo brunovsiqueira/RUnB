@@ -63,6 +63,7 @@ public class CreditoFragment extends Fragment {
 
         //SE NAO, AGUARDAR LOGIN
         findViewItems(view);
+        verifyIfUserIsLoggedIn();
         return view;
 
     }
@@ -77,6 +78,18 @@ public class CreditoFragment extends Fragment {
 
         loginButton.setOnClickListener(loginClickListener);
         toolbarTitle.setText("Login");
+
+    }
+
+    private void verifyIfUserIsLoggedIn() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        if (User.getInstance() != null) {
+            //if user.getInstance exists, then send user to next activity
+            startActivity(new Intent(getContext(), CreditoActivity.class));
+        } else {
+            //else, wait for login
+        }
 
     }
 

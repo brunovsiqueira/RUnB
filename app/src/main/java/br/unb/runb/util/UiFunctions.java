@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+
+import br.unb.runb.screens.ContainerActivity;
+import br.unb.runb.screens.credito.CreditoActivity;
 
 public class UiFunctions {
 
@@ -17,6 +21,24 @@ public class UiFunctions {
                 });
         // Create the AlertDialog object and return it
         return builder.create();
+    }
+
+    public static void tokenExpired(Context context) {
+        //TODO: testar
+        Intent intent = new Intent(context, ContainerActivity.class); //TODO: get intent at container and set to login tab
+        intent.putExtra("token_expired", true);
+        context.startActivity(intent);
+        //dialog
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("A sua sessão expirou");
+        alertDialog.setMessage("Por favor, realize o login novamente");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
 }
