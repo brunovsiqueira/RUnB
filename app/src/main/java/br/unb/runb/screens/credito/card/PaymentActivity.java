@@ -1,25 +1,17 @@
 package br.unb.runb.screens.credito.card;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -37,7 +29,6 @@ import br.unb.runb.util.FormatterString;
 import br.unb.runb.util.Mask;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
-import okhttp3.OkHttpClient;
 
 public class PaymentActivity extends BasicActvity {
 

@@ -2,14 +2,13 @@ package br.unb.runb.screens.credito.card;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
-import br.unb.runb.util.Mask;
 
 public class ChooseCardTypeActivity extends BasicActvity {
 

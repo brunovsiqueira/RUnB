@@ -1,22 +1,10 @@
 package br.unb.runb.screens.credito;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.drm.DrmErrorEvent;
-import android.drm.DrmManagerClient;
-import android.media.MediaSync;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
+
+import androidx.annotation.Nullable;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,13 +19,9 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.NumberFormat;
-
 import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
 import br.unb.runb.models.User;
-import br.unb.runb.screens.ContainerActivity;
-import br.unb.runb.screens.credito.card.ChooseCardTypeActivity;
 import br.unb.runb.screens.credito.card.PaymentActivity;
 import br.unb.runb.util.UiFunctions;
 
