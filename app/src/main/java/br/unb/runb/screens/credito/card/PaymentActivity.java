@@ -1,6 +1,8 @@
 package br.unb.runb.screens.credito.card;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -283,6 +285,8 @@ public class PaymentActivity extends BasicActvity {
                 final ProgressDialog pd = new ProgressDialog(PaymentActivity.this);
                 pd.show(PaymentActivity.this, "Carregando", "Efetuando pagamento...");
 
+
+
                 AndroidNetworking.post("https://apisandbox.cieloecommerce.cielo.com.br/1/sales")
                         .addJSONObjectBody(jsonObject)
                         .addHeaders("merchantId", "448fcb7c-6670-4493-995d-1863671899ee")
@@ -296,10 +300,8 @@ public class PaymentActivity extends BasicActvity {
                                 try {
                                     //Toast.makeText(PaymentActivity.this, response.getJSONObject("Payment").get("ReturnMessage").toString(), Toast.LENGTH_SHORT).show();
                                     if (response.getJSONObject("Payment").get("ReturnMessage").toString().contains("Successful")) {
-                                        Toast.makeText(PaymentActivity.this, "Pagamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
-//                                        new FancyAlertDialog.Builder(PaymentActivity.this)
-//                                                .setTitle("Pagamento realizado com sucesso!")
-//                                                .build();
+                                        //Toast.makeText(PaymentActivity.this, "Pagamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                        //TODO: SHOW SUCCESS DIALOG
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -320,19 +322,6 @@ public class PaymentActivity extends BasicActvity {
                                 }
                             }
                         });
-//                Ion.with(PaymentActivity.this)
-//                        .load("https://apisandbox.cieloecommerce.cielo.com.br")
-//                        .uploadProgressBar(progressBar)
-//                        .setHeader("merchantId", "448fcb7c-6670-4493-995d-1863671899ee")
-//                        .setHeader("merchantKey", "ZCMHARNFVOTJNWILJADFAZJUCOQBBBKVRSNRWCQU")
-//                        .setJsonObjectBody(jsonObject)
-//                        .asJsonObject()
-//                        .setCallback(new FutureCallback<JsonObject>() {
-//                            @Override
-//                            public void onCompleted(Exception e, JsonObject result) {
-//                                Toast.makeText(PaymentActivity.this, result.getAsJsonObject("Payment").get("ReturnMessage").toString(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
 
             }
         }

@@ -64,6 +64,7 @@ public class CreditoFragment extends Fragment {
         //SE NAO, AGUARDAR LOGIN
         findViewItems(view);
         verifyIfUserIsLoggedIn();
+
         return view;
 
     }

@@ -163,6 +163,7 @@ public class CreditoActivity extends BasicActvity {
                                 //                            //token expirou
                                 //TODO: testar
                                 UiFunctions.tokenExpired(CreditoActivity.this);
+                                finish();
                             }
 
                         } catch (JSONException e) {
@@ -179,8 +180,9 @@ public class CreditoActivity extends BasicActvity {
     View.OnClickListener cardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            startActivity(new Intent(CreditoActivity.this, ChooseCardTypeActivity.class));
+            Intent intent = new Intent(CreditoActivity.this, PaymentActivity.class);
+            intent.putExtra("type", "CreditCard");
+            //startActivity(new Intent(CreditoActivity.this, ChooseCardTypeActivity.class));
 
         }
     };
