@@ -28,6 +28,7 @@ import br.unb.runb.util.UiFunctions;
 public class CreditoActivity extends BasicActvity {
 
     private Button cardButton;
+    private Button extratoButton;
     private Button generateBill;
     private EditText billAmount;
     private TextView valorSaldo;
@@ -51,6 +52,7 @@ public class CreditoActivity extends BasicActvity {
     private void findViewItems() {
 
         cardButton = findViewById(R.id.credito_button_card);
+        extratoButton = findViewById(R.id.extrato_button);
         //generateBill = findViewById(R.id.credito_generate_bill);
         valorSaldo = findViewById(R.id.credito_saldo);
         progressSaldo = findViewById(R.id.progress_saldo);
@@ -58,6 +60,7 @@ public class CreditoActivity extends BasicActvity {
         valorRefeicao = findViewById(R.id.valor_refeicao);
 
         cardButton.setOnClickListener(cardClickListener);
+        extratoButton.setOnClickListener(extratoClickListener);
         //generateBill.setOnClickListener(billClickListener);
 
     }
@@ -168,6 +171,13 @@ public class CreditoActivity extends BasicActvity {
             intent.putExtra("type", "CreditCard");
             //startActivity(new Intent(CreditoActivity.this, ChooseCardTypeActivity.class));
 
+        }
+    };
+
+    View.OnClickListener extratoClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(CreditoActivity.this, ExtratoActivity.class));
         }
     };
 
