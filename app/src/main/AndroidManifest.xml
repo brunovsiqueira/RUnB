@@ -23,7 +23,7 @@
         <activity android:name=".screens.credito.card.PaymentActivity"/>
         <activity android:name=".screens.credito.card.ChooseCardTypeActivity"/>
         <activity android:name=".screens.menu.NewsActivity"/>
-        <activity android:name=".screens.credito.ExtratoActivity"/>
+        <activity android:name=".screens.credito.extrato.ExtratoActivity"/>
     </application>
 
 </manifest>

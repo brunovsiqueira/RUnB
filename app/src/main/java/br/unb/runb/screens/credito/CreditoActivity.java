@@ -23,6 +23,7 @@ import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
 import br.unb.runb.models.User;
 import br.unb.runb.screens.credito.card.PaymentActivity;
+import br.unb.runb.screens.credito.extrato.ExtratoActivity;
 import br.unb.runb.util.UiFunctions;
 
 public class CreditoActivity extends BasicActvity {

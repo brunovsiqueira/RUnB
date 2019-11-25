@@ -84,7 +84,6 @@
             android:layout_marginLeft="28dp"
             android:textAlignment="center"
             android:fontFamily="sans-serif-condensed"
-            android:text="O valor da refeição para o almoço é de"
             />
 
         <TextView
@@ -97,7 +96,6 @@
             android:layout_marginLeft="28dp"
             android:textAlignment="center"
             android:fontFamily="sans-serif-medium"
-            android:text="R$ 5,20"
             />
 
         <Button

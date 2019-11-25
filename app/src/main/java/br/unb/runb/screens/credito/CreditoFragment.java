@@ -53,7 +53,7 @@ public class CreditoFragment extends Fragment {
 
         //SE NAO, AGUARDAR LOGIN
         findViewItems(view);
-        verifyIfUserIsLoggedIn();
+        //verifyIfUserIsLoggedIn();
 
         return view;
 
@@ -73,6 +73,8 @@ public class CreditoFragment extends Fragment {
     }
 
     private void verifyIfUserIsLoggedIn() {
+
+        //verify if token has expired. If yes, request a new one
 
         progressBar.setVisibility(View.VISIBLE);
         if (User.getInstance() != null) {
