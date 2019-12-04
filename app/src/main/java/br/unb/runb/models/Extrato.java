@@ -2,7 +2,7 @@ package br.unb.runb.models;
 
 public class Extrato {
 
-    private String tipoTransacao; //V= VENDA (+),
+    private String tipoTransacao; //V= VENDA (+), C = CONSUMO (-)
     private double valor;
     private String descricao;
     private String data;

@@ -35,6 +35,7 @@ public class CreditoActivity extends BasicActvity {
     private TextView valorSaldo;
     private TextView nomeRefeicao;
     private TextView valorRefeicao;
+    private TextView textName;
     private ProgressBar progressSaldo;
 
     private String current = "";
@@ -59,9 +60,11 @@ public class CreditoActivity extends BasicActvity {
         progressSaldo = findViewById(R.id.progress_saldo);
         nomeRefeicao = findViewById(R.id.nome_refeicao);
         valorRefeicao = findViewById(R.id.valor_refeicao);
+        textName = findViewById(R.id.text_name);
 
         cardButton.setOnClickListener(cardClickListener);
         extratoButton.setOnClickListener(extratoClickListener);
+        textName.setText("Olá, "+ User.getInstance().getName().split(" ")[0]);
         //generateBill.setOnClickListener(billClickListener);
 
     }
@@ -92,30 +95,6 @@ public class CreditoActivity extends BasicActvity {
                     public void onError(ANError anError) {
                         //{"error":"access_denied"} STATUS 400
                         //saldo qualquer um pode ver
-//                        if (anError.getErrorCode() == 400) {
-//                            //token expirou
-//                            //TODO: testar
-//                            Intent intent = new Intent(CreditoActivity.this, ContainerActivity.class); //TODO: get intent at container and set to login tab
-//                            intent.putExtra("token_expired", true);
-//                            startActivity(intent);
-//                            //dialog
-//                            AlertDialog alertDialog = new AlertDialog.Builder(CreditoActivity.this).create();
-//                            alertDialog.setTitle("A sua sessãso expirou");
-//                            alertDialog.setMessage("Por favor, realize o login novamente");
-//                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-//                                    new DialogInterface.OnClickListener() {
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            dialog.dismiss();
-//                                        }
-//                                    });
-//                            alertDialog.show();
-//                            //finish
-//                        } else {
-//
-//                            valorSaldo.setVisibility(View.VISIBLE);
-//                            valorSaldo.setText("ERRO");
-//                            //TODO: see how to deal to access token expired response
-//                        }
                         valorSaldo.setVisibility(View.VISIBLE);
                         valorSaldo.setText("ERRO");
                         progressSaldo.setVisibility(View.GONE);
@@ -126,8 +105,9 @@ public class CreditoActivity extends BasicActvity {
 
     private void requestGrupo() {
         AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/grupo?access_token={access_token}")
-                .addPathParameter("id", User.getInstance().getMatricula())
+                .addPathParameter("id", User.getInstance().getId())
                 .addPathParameter("access_token", User.getInstance().getAccessToken())
+                //.addHeaders("Authorization")
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -152,6 +132,8 @@ public class CreditoActivity extends BasicActvity {
                                 //TODO: testar
                                 UiFunctions.tokenExpired(CreditoActivity.this);
                                 finish();
+                            } else if (jsonObject.getString("error").equalsIgnoreCase("validation")) {
+                                nomeRefeicao.setText("Erro no servidor");
                             }
 
                         } catch (JSONException e) {

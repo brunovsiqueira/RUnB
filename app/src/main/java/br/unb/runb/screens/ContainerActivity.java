@@ -5,6 +5,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -32,6 +35,20 @@ public class ContainerActivity extends AppCompatActivity {
         instantiateFragments();
         addFragments();
         findViewItems();
+
+        if (getIntent().getBooleanExtra("token_expired", false)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("A sua sessão expirou");
+            //builder.setMessage("Por favor, realize o login novamente");
+            builder.setMessage("Por favor, realize o login novamente")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    });
+            builder.show();
+        }
+
 
     }
 

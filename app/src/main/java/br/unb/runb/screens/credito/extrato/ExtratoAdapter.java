@@ -1,6 +1,7 @@
 package br.unb.runb.screens.credito.extrato;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,11 @@ public class ExtratoAdapter extends RecyclerView.Adapter {
         if (extrato.getTipoTransacao().equalsIgnoreCase("V")) {
             extratoViewHolder.extratoDescricao.setText("Compra");
             extratoViewHolder.extratoValor.setText(String.valueOf(extrato.getValor()));
+            extratoViewHolder.extratoValor.setTextColor(Color.BLACK);
         } else {
             extratoViewHolder.extratoDescricao.setText(extrato.getDescricao());
-            extratoViewHolder.extratoValor.setText(String.valueOf(extrato.getValor()));
+            extratoViewHolder.extratoValor.setText(String.valueOf(-extrato.getValor()));
+            extratoViewHolder.extratoValor.setTextColor(Color.RED);
         }
 
     }

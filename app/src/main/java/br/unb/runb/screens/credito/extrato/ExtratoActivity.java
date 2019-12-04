@@ -57,7 +57,7 @@ public class ExtratoActivity extends AppCompatActivity {
         AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/extrato?access_token={access_token}&filter={filter}")
                 .addPathParameter("id", User.getInstance().getMatricula())
                 .addPathParameter("access_token", User.getInstance().getAccessToken())
-                .addPathParameter("filter","\"{\"dataInicio\":\"01-01-2014\", \"dataFim\":\"02-12-2019\"}\"")
+                .addPathParameter("filter","\"{\"dataInicio\":\"01-01-2014\", \"dataFim\":\"02-12-2019\"}\"") //TODO: user escolhe a data, ou colocar nos últimos 3 anos (?)
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
@@ -67,11 +67,21 @@ public class ExtratoActivity extends AppCompatActivity {
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
-                                String[] descricao = jsonObject.getJSONObject("grupo").getString("descricao").split(" ");
+                                //String[] descricao = jsonObject.getJSONObject("grupo").getString("descricao").split(" ");
+                                String descricao = "";
                                 String[] data =  jsonObject.getString("dataHora").split(" ");
+
+                                int hora = Integer.valueOf(data[1].split(":")[0]);
+                                if (hora>=16) {
+                                    descricao = "Jantar";
+                                } else if (hora >= 10 && hora < 15) {
+                                    descricao =  "Almoço";
+                                } else if (hora <10) {
+                                    descricao = "Café da manhã";
+                                }
                                 extratoArrayList.add(new Extrato(jsonObject.getString("tipoTransacao"),
                                                                  jsonObject.getDouble("valorRecebido"),
-                                                                  descricao[2], data[0]));
+                                                                  descricao, data[0]));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
