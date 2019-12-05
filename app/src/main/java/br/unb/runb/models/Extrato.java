@@ -1,17 +1,21 @@
 package br.unb.runb.models;
 
-public class Extrato {
+import java.util.Calendar;
+
+public class Extrato implements Comparable<Extrato> {
 
     private String tipoTransacao; //V= VENDA (+), C = CONSUMO (-)
     private double valor;
     private String descricao;
+    private Calendar calendar;
     private String data;
 
-    public Extrato(String tipoTransacao, double valor, String descricao, String data) {
+    public Extrato(String tipoTransacao, double valor, String descricao, String data, Calendar calendar) {
         this.tipoTransacao = tipoTransacao;
         this.valor = valor;
         this.descricao = descricao;
         this.data = data;
+        this.calendar = calendar;
     }
 
     public String getTipoTransacao() {
@@ -26,7 +30,16 @@ public class Extrato {
         return descricao;
     }
 
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
     public String getData() {
         return data;
+    }
+
+    @Override
+    public int compareTo(Extrato o) {
+        return o.getCalendar().compareTo(this.calendar);
     }
 }

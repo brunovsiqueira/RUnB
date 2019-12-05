@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,15 +81,20 @@ public class ExtratoActivity extends AppCompatActivity {
                                 } else if (hora <10) {
                                     descricao = "Café da manhã";
                                 }
+
+                                Calendar calendar = getCalendarFromString(data);
+
+
                                 extratoArrayList.add(new Extrato(jsonObject.getString("tipoTransacao"),
                                                                  jsonObject.getDouble("valorRecebido"),
-                                                                  descricao, data[0]));
+                                                                  descricao, data[0], calendar));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
                         }
 
+                        Collections.sort(extratoArrayList);
                         recyclerView.setAdapter(new ExtratoAdapter(extratoArrayList, ExtratoActivity.this));
 
                     }
@@ -98,6 +105,21 @@ public class ExtratoActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private Calendar getCalendarFromString(String[] data) {
+        int day = Integer.valueOf(data[0].split("/")[0]);
+        int month = Integer.valueOf(data[0].split("/")[1]);
+        int year = Integer.valueOf(data[0].split("/")[2]);
+
+        int hour = Integer.valueOf(data[1].split(":")[0]);
+        int minute = Integer.valueOf(data[1].split(":")[1]);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(year, month, day, hour, minute);
+
+        return calendar;
     }
 
 }

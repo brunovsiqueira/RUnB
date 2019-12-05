@@ -160,7 +160,9 @@ public class CreditoActivity extends BasicActvity {
     View.OnClickListener extratoClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(CreditoActivity.this, ExtratoActivity.class));
+            Intent intent = new Intent(CreditoActivity.this, ExtratoActivity.class);
+            intent.putExtra("saldo", valorSaldo.getText().toString());
+            startActivity(intent);
         }
     };
 
