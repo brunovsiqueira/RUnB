@@ -31,6 +31,7 @@ public class ExtratoActivity extends AppCompatActivity {
 
     private TextView toolbarTitle;
     private RecyclerView recyclerView;
+    private TextView textSaldo;
     private ArrayList<Extrato> extratoArrayList = new ArrayList<>();
 
     @Override
@@ -43,6 +44,9 @@ public class ExtratoActivity extends AppCompatActivity {
         getExtrato();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if (getIntent().getStringExtra("saldo") != null) {
+            textSaldo.setText(getIntent().getStringExtra("saldo"));
+        }
 
     }
 
@@ -50,6 +54,7 @@ public class ExtratoActivity extends AppCompatActivity {
 
         toolbarTitle = findViewById(R.id.toolbar_container_title);
         recyclerView = findViewById(R.id.extrato_reyclerview);
+        textSaldo = findViewById(R.id.saldo_valor);
 
         toolbarTitle.setText("Extrato");
 

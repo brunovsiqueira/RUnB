@@ -67,6 +67,70 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="2dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoje"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:layout_alignParentLeft="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/extrato_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seu saldo"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/saldo_valor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5.0"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/extrato_reyclerview"
         android:layout_width="match_parent"

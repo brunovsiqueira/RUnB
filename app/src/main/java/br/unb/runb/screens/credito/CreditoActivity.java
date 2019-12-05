@@ -152,7 +152,7 @@ public class CreditoActivity extends BasicActvity {
         public void onClick(View v) {
             Intent intent = new Intent(CreditoActivity.this, PaymentActivity.class);
             intent.putExtra("type", "CreditCard");
-            //startActivity(new Intent(CreditoActivity.this, ChooseCardTypeActivity.class));
+            startActivity(intent);
 
         }
     };

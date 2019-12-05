@@ -25,6 +25,7 @@ import java.text.NumberFormat;
 
 import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
+import br.unb.runb.models.User;
 import br.unb.runb.util.FormatterString;
 import br.unb.runb.util.Mask;
 import io.card.payment.CardIOActivity;
@@ -44,6 +45,7 @@ public class PaymentActivity extends BasicActvity {
     public JsonObject cardObject = new JsonObject();
 
     private String current = "";
+    private boolean isServerWoking = false;
 
     private final int MY_SCAN_REQUEST_CODE = 0;
     private String cardType;
@@ -57,7 +59,16 @@ public class PaymentActivity extends BasicActvity {
 //        OkHttpClient okHttpClient = new OkHttpClient() .newBuilder()
 //                .addNetworkInterceptor(new StethoInterceptor())
 //                .build();
-        AndroidNetworking.initialize(getApplicationContext());
+        //AndroidNetworking.initialize(getApplicationContext());
+
+        //chamar endpoint de venda passando valor 0
+        //se der certo, setar flag pra true
+
+        //clicou no botão de pagamento, se flag for false, exibir mensagem de tente novamente mais tarde
+        //se flag for true, chamar novamente endpoint de venda com valor 0.
+        //se a resposta for de sucesso, chamar api de pagamento com valor setado pelo user. Else, mensagem de erro
+        //se a api de pagamento responder com sucesso, chamar o endpoint de venda com o valor setado pelo user. Else, mensagem de cartao invalido
+
 
         findViewItems();
     }
@@ -98,34 +109,35 @@ public class PaymentActivity extends BasicActvity {
         JSONObject completeJson = new JSONObject();
 
         try {
-            customer.put("Name", "Comprador teste"); //TODO: futuramente nome do usuario
+            customer.put("Name", User.getInstance().getName());
 
 
-        payment.put("Type", cardType);
-        payment.put("Amount", Integer.parseInt(FormatterString.onlyDigits(textAmount.getText().toString())));
-        payment.put("Provider", "Simulado"); //TODO: Simulado apenas no Sandbox
-        payment.put("ReturnUrl", "https://www.cielo.com.br");
-        payment.put("Installments", 1);
-        if (cardType.equalsIgnoreCase("debitCard")) {
-            payment.put("Authenticate", true);
-        } else if  (cardType.equalsIgnoreCase("creditCard")) {
-            //payment.addProperty("Authenticate", false);
-        }
-        JSONObject card = new JSONObject();
-        card.put("CardNumber", cardNumber.getText().toString());
-        card.put("Holder", cardName.getText().toString());
-        card.put("ExpirationDate", cardDate.getText().toString());
-        card.put("SecurityCode", securityNumber.getText().toString());
-        card.put("Brand", "Visa"); //TODO: Add correct brand (spinner)
-        if (cardType.equalsIgnoreCase("debitCard")) {
-            payment.put("DebitCard", card);
-        } else if  (cardType.equalsIgnoreCase("CreditCard")) {
-            payment.put("CreditCard", card);
-        }
+            payment.put("Type", cardType);
+            payment.put("Amount", Integer.parseInt(FormatterString.onlyDigits(textAmount.getText().toString())));
+            payment.put("Provider", "Simulado"); //TODO: Simulado apenas no Sandbox
+            payment.put("ReturnUrl", "https://www.cielo.com.br");
+            payment.put("Installments", 1);
+            payment.put("Currency","BRL");
+            if (cardType.equalsIgnoreCase("debitCard")) {
+                payment.put("Authenticate", true);
+            } else if  (cardType.equalsIgnoreCase("creditCard")) {
+                //payment.addProperty("Authenticate", false);
+            }
+            JSONObject card = new JSONObject();
+            card.put("CardNumber", cardNumber.getText().toString());
+            card.put("Holder", cardName.getText().toString());
+            card.put("ExpirationDate", cardDate.getText().toString());
+            card.put("SecurityCode", securityNumber.getText().toString());
+            card.put("Brand", "Visa"); //TODO: Add correct brand (spinner)
+            if (cardType.equalsIgnoreCase("debitCard")) {
+                payment.put("DebitCard", card);
+            } else if  (cardType.equalsIgnoreCase("CreditCard")) {
+                payment.put("CreditCard", card);
+            }
 
-        completeJson.put("MerchantOrderId", 2014111903); //TODO: generate correctly
-        completeJson.put("Customer", customer);
-        completeJson.put("Payment", payment);
+            completeJson.put("MerchantOrderId", User.getInstance().getId()); //TODO: generate correctly (Tem que ser unico por pedido ou por pessoa?)
+            completeJson.put("Customer", customer);
+            completeJson.put("Payment", payment);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -246,7 +258,7 @@ public class PaymentActivity extends BasicActvity {
                 textAmount.removeTextChangedListener(this);
 
                 //String cleanString = s.toString().replaceAll("\\D", "");
-                String cleanString = s.toString().replaceAll("[$,.]", "");
+                String cleanString = s.toString().replaceAll("[$.,]", "");
 
                 double parsed = Double.parseDouble(cleanString);
                 String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
