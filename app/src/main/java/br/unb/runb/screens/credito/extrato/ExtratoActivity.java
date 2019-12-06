@@ -39,7 +39,7 @@ public class ExtratoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extrato);
 
-        //OLHAR O EXTRATO DO APP BRADESCO
+        //TODO: progress bar while loading
         findViewItems();
         getExtrato();
 

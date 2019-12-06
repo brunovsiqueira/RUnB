@@ -109,7 +109,7 @@ public class CreditoActivity extends BasicActvity {
     }
 
     private void requestGrupo() {
-        AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/grupo?access_token={access_token}")
+        AndroidNetworking.post("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/grupo?access_token={access_token}")
                 .addPathParameter("id", User.getInstance().getId())
                 .addPathParameter("access_token", User.getInstance().getAccessToken())
                 //.addHeaders("Authorization")
