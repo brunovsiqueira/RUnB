@@ -30,6 +30,7 @@ public class CreditoActivity extends BasicActvity {
 
     private Button cardButton;
     private Button extratoButton;
+    private Button barcodeButton;
     private Button generateBill;
     private EditText billAmount;
     private TextView valorSaldo;
@@ -55,6 +56,8 @@ public class CreditoActivity extends BasicActvity {
 
         cardButton = findViewById(R.id.credito_button_card);
         extratoButton = findViewById(R.id.extrato_button);
+        barcodeButton = findViewById(R.id.button_barcode);
+
         //generateBill = findViewById(R.id.credito_generate_bill);
         valorSaldo = findViewById(R.id.credito_saldo);
         progressSaldo = findViewById(R.id.progress_saldo);
@@ -64,6 +67,8 @@ public class CreditoActivity extends BasicActvity {
 
         cardButton.setOnClickListener(cardClickListener);
         extratoButton.setOnClickListener(extratoClickListener);
+        barcodeButton.setOnClickListener(barcodeClickListener);
+
         textName.setText("Olá, "+ User.getInstance().getName().split(" ")[0]);
         //generateBill.setOnClickListener(billClickListener);
 
@@ -158,6 +163,15 @@ public class CreditoActivity extends BasicActvity {
     };
 
     View.OnClickListener extratoClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(CreditoActivity.this, ExtratoActivity.class);
+            intent.putExtra("saldo", valorSaldo.getText().toString());
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener barcodeClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(CreditoActivity.this, ExtratoActivity.class);

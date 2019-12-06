@@ -68,7 +68,7 @@ public class PaymentActivity extends BasicActvity {
         //se flag for true, chamar novamente endpoint de venda com valor 0.
         //se a resposta for de sucesso, chamar api de pagamento com valor setado pelo user. Else, mensagem de erro
         //se a api de pagamento responder com sucesso, chamar o endpoint de venda com o valor setado pelo user. Else, mensagem de cartao invalido
-
+        //Se ainda assim o endpoint de venda der errado, cancelar a venda via api
 
         findViewItems();
     }
