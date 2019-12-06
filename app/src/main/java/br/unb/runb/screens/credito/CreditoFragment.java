@@ -103,7 +103,7 @@ public class CreditoFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
             //TODO: Save? username and password (encrypted and secret) to implement a fake autologin
             AndroidNetworking
-                    .get("https://homologaservicos.unb.br/dados/authorize?grant_type={grant_type}&client_secret={client_secret}&client_id={client_id}&response_type=password&username={username}&password={password}")
+                    .post("https://homologaservicos.unb.br/dados/authorize?grant_type={grant_type}&client_secret={client_secret}&client_id={client_id}&response_type=password&username={username}&password={password}")
                     .addPathParameter("grant_type", "password")
                     .addPathParameter("client_secret", MY_CLIENT_SECRET)
                     .addPathParameter("client_id", MY_CLIENT_ID)
