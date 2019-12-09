@@ -14,13 +14,21 @@
         tools:replace="android:icon"
         android:usesCleartextTraffic="true"
         android:hardwareAccelerated="true">
-        <activity android:name=".screens.ContainerActivity"
-            android:windowSoftInputMode="adjustPan">
+        <activity android:name=".screens.SplashActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
+        </activity>
+        <activity android:name=".screens.ContainerActivity"
+            android:windowSoftInputMode="adjustPan">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".screens.credito.CreditoActivity">
             <intent-filter>
