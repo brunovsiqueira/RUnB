@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="br.unb.runb">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true">
         <activity android:name=".screens.ContainerActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -32,6 +34,7 @@
         <activity android:name=".screens.credito.card.ChooseCardTypeActivity"/>
         <activity android:name=".screens.menu.NewsActivity"/>
         <activity android:name=".screens.credito.extrato.ExtratoActivity"/>
+        <activity android:name=".screens.credito.AcessoActivity"/>
     </application>
 
 </manifest>

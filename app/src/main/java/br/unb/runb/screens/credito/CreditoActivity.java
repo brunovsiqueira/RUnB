@@ -174,8 +174,7 @@ public class CreditoActivity extends BasicActvity {
     View.OnClickListener barcodeClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(CreditoActivity.this, ExtratoActivity.class);
-            intent.putExtra("saldo", valorSaldo.getText().toString());
+            Intent intent = new Intent(CreditoActivity.this, AcessoActivity.class);
             startActivity(intent);
         }
     };
