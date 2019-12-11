@@ -163,9 +163,24 @@ public class CreditoFragment extends Fragment {
                         @Override
                         public void onError(ANError anError) {
                             progressBar.setVisibility(View.GONE);
-                            Dialog dialog = UiFunctions.showDilalog("Matrícula e/ou senha incorretas", getContext());
-                            dialog.show();
-                            Log.d("ERRO", anError.getErrorBody());
+                            try {
+                                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+//                                if (jsonObject.getString("error").equalsIgnoreCase("access_denied")) {
+//                                    //                            //token expirou
+//                                    //TODO: testar
+//                                    UiFunctions.tokenExpired(getContext());
+//                                } else
+                                    if (jsonObject.getString("error").equalsIgnoreCase("validation")) {
+                                    Dialog dialog = UiFunctions.showDilalog("Erro no servidor", getContext());
+                                    dialog.show();
+                                } else {
+                                    Dialog dialog = UiFunctions.showDilalog("Erro no servidor", getContext());
+                                    dialog.show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
 

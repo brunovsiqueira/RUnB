@@ -37,6 +37,7 @@ public class CreditoActivity extends BasicActvity {
     private TextView nomeRefeicao;
     private TextView valorRefeicao;
     private TextView textName;
+    private TextView textGrupo;
     private ProgressBar progressSaldo;
 
     private String current = "";
@@ -64,6 +65,7 @@ public class CreditoActivity extends BasicActvity {
         nomeRefeicao = findViewById(R.id.nome_refeicao);
         valorRefeicao = findViewById(R.id.valor_refeicao);
         textName = findViewById(R.id.text_name);
+        textGrupo = findViewById(R.id.text_grupo);
 
         cardButton.setOnClickListener(cardClickListener);
         extratoButton.setOnClickListener(extratoClickListener);
@@ -122,6 +124,7 @@ public class CreditoActivity extends BasicActvity {
                             String[] descricao = response.getString("descricao").split(" ");
                             nomeRefeicao.setText("O valor da refeição para o " + descricao[2] + " é de");
                             valorRefeicao.setText("R$ " + response.getString("valor"));
+                            textGrupo.setText("Você pertence ao " + descricao[0] + " " + descricao [1]);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -37,6 +37,7 @@ public class AcessoActivity extends AppCompatActivity {
     private TextView textRA;
     private TextView textCodigo;
     private ImageView imageBarcode;
+    private TextView toolbarTitle;
     private Code39 barcode;
 
     @Override
@@ -57,10 +58,12 @@ public class AcessoActivity extends AppCompatActivity {
         textRA = findViewById(R.id.text_user_ra);
         textCodigo = findViewById(R.id.text_user_codigo);
         imageBarcode = findViewById(R.id.image_barcode);
+        toolbarTitle = findViewById(R.id.toolbar_container_title);
 
         textName.setText(User.getInstance().getName());
         textRA.setText(User.getInstance().getMatricula());
         textCodigo.setText(User.getInstance().getId());
+        toolbarTitle.setText("Acesso ao Refeitório");
 
     }
 

@@ -21,8 +21,18 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-condensed"
-            android:text="Olá, Bruno"
+            android:text=""
             />
+
+        <TextView
+            android:id="@+id/text_grupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed"/>
 
 
         <TextView
@@ -110,7 +120,8 @@
             android:text="consultar extrato"
             android:textColor="@color/white"
             android:textAllCaps="true"
-            android:layout_marginTop="32dp" />
+            android:layout_marginTop="32dp"
+            />
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
@@ -180,7 +191,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:background="@color/colorPrimaryDark"
-            android:text="ACESSO REFEITÓRIO"
+            android:text="ACESSO AO REFEITÓRIO"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_marginTop="16dp"/>

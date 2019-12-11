@@ -40,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"
-                android:layout_marginTop="6dp">
+                android:layout_marginTop="6dp"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <ImageView
                     android:id="@+id/fragment_menu_iv_documentspicture"
@@ -75,10 +76,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-            android:id="@+id/clickable_news"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#FFFFFF">
+                android:id="@+id/clickable_news"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground">
 
 
                 <View
@@ -123,7 +125,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#FFFFFF">
+                android:background="#FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground">
 
 
                 <View
@@ -165,66 +168,6 @@
 
             </RelativeLayout>
 
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentBottom="true"-->
-                    <!--android:layout_marginLeft="8dp"-->
-                    <!--android:layout_marginTop="18.9dp"-->
-                    <!--android:fontFamily="sans-serif-light"-->
-                    <!--android:text="ADMINISTRADOR"-->
-                    <!--android:textAllCaps="true"-->
-                    <!--android:textSize="12sp"-->
-                    <!--android:textColor="@color/text_gray" />-->
-            <!--</RelativeLayout>-->
-
-
-
-            <!--<RelativeLayout-->
-                <!--android:id="@+id/clickable_desires"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:background="#FFFFFF"-->
-                <!--android:layout_marginTop="6dp">-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/fragment_menu_image_desires"-->
-                    <!--android:layout_width="20dp"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:src="@drawable/admin_icon"-->
-                    <!--android:tint="@color/colorPrimaryDark"/>-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginLeft="16dp"-->
-                    <!--android:layout_toRightOf="@id/fragment_menu_image_desires"-->
-                    <!--android:fontFamily="sans-serif-regular"-->
-                    <!--android:text="Painel do administrador"-->
-                    <!--android:textColor="@color/text_gray"-->
-                    <!--android:textSize="14.1sp"/>-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/fragment_menu_desire_imagenext"-->
-                    <!--android:layout_width="14dp"-->
-                    <!--android:layout_height="14dp"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:src="@drawable/disclosure_menu"-->
-                    <!--android:tint="@color/text_gray"/>-->
-
-            <!--</RelativeLayout>-->
-
-
-
             <Button
                 android:id="@+id/menu_logout"
                 android:layout_width="match_parent"
@@ -235,7 +178,8 @@
                 android:text="DESLOGAR"
                 android:textAllCaps="false"
                 android:textSize="14.1sp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"/>
 
 
         </LinearLayout>

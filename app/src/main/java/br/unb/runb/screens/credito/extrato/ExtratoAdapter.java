@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -41,9 +43,11 @@ public class ExtratoAdapter extends RecyclerView.Adapter {
         Extrato extrato = extratoArrayList.get(position);
 
         extratoViewHolder.extratoData.setText(extratoArrayList.get(position).getData());
+        //NumberFormat numberFormat = NumberFormat.getCurrencyInstance().
 
         if (extrato.getTipoTransacao().equalsIgnoreCase("V")) {
             extratoViewHolder.extratoDescricao.setText("Compra");
+            //extratoViewHolder.extratoValor.setText(String.format(String.valueOf(extrato.getValor()), decimalFormat));
             extratoViewHolder.extratoValor.setText(String.valueOf(extrato.getValor()));
             extratoViewHolder.extratoValor.setTextColor(Color.BLACK);
         } else {
