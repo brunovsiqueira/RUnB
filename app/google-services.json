@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "142882681476",
+    "firebase_url": "https://runb-30b55.firebaseio.com",
+    "project_id": "runb-30b55",
+    "storage_bucket": "runb-30b55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142882681476:android:35415c9a770499e74248d1",
+        "android_client_info": {
+          "package_name": "br.unb.runb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142882681476-22ekdesu785urv2r77n0eai87uib3c5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGWC9xCMdFTWkNrzN-DfX1nE04UaURVRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142882681476-22ekdesu785urv2r77n0eai87uib3c5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

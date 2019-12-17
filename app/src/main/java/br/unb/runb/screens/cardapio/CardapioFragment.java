@@ -19,9 +19,11 @@ public class CardapioFragment extends Fragment {
     private TextView toolbarTitle;
     private Spinner spinnerDia;
     private Spinner spinnerRefeicao;
+    private Spinner spinnerCampus;
 
     String[] dias = new String[]{"Seg - 8 OUT","Ter - 9 OUT","Qua - 10 OUT","Qui - 11 OUT","Sex - 12 OUT"};
     String[] refeicoes = new String[]{"Café da manhã", "Almoço", "Janta"};
+    String[] campusArray = new String[]{"Darcy Ribeiro", "Gama", "Planaltina", "Ceilândia", "Fazenda"};
 
     @Nullable
     @Override
@@ -38,7 +40,8 @@ public class CardapioFragment extends Fragment {
 
         toolbarTitle = v.findViewById(R.id.toolbar_container_title);
         spinnerDia = v.findViewById(R.id.cardapio_spinner_dia);
-        spinnerRefeicao = v.findViewById(R.id.cardapio_spinner_refeicao);
+        //spinnerRefeicao = v.findViewById(R.id.cardapio_spinner_refeicao);
+        spinnerCampus = v.findViewById(R.id.cardapio_spinner_campus);
 
         toolbarTitle.setText("Cardápio");
 
@@ -46,9 +49,13 @@ public class CardapioFragment extends Fragment {
         diasArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDia.setAdapter(diasArray);
 
-        ArrayAdapter<String> refeicaoArray= new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, refeicoes);
-        refeicaoArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRefeicao.setAdapter(refeicaoArray);
+        ArrayAdapter<String> campusArrayAdapter= new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, campusArray);
+        campusArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCampus.setAdapter(campusArrayAdapter);
+
+//        ArrayAdapter<String> refeicaoArray= new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, refeicoes);
+//        refeicaoArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerRefeicao.setAdapter(refeicaoArray);
 
     }
 

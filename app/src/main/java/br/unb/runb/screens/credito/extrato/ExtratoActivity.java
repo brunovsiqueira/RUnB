@@ -61,6 +61,9 @@ public class ExtratoActivity extends AppCompatActivity {
     }
 
     private void getExtrato() {
+        Calendar calendar = Calendar.getInstance();
+//        extratoArrayList.add(new Extrato(Double.valueOf(getIntent().getStringExtra("saldo")), "Seu saldo", "Hoje"));
+
         AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/extrato?access_token={access_token}&filter={filter}")
                 .addPathParameter("id", User.getInstance().getMatricula())
                 .addPathParameter("access_token", User.getInstance().getAccessToken())

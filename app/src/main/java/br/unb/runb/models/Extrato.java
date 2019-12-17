@@ -18,6 +18,14 @@ public class Extrato implements Comparable<Extrato> {
         this.calendar = calendar;
     }
 
+    public Extrato(double valor, String descricao, String data) {
+
+        this.valor = valor;
+        this.descricao = descricao;
+        this.data = data;
+
+    }
+
     public String getTipoTransacao() {
         return tipoTransacao;
     }

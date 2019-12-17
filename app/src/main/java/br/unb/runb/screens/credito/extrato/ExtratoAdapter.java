@@ -45,6 +45,15 @@ public class ExtratoAdapter extends RecyclerView.Adapter {
         extratoViewHolder.extratoData.setText(extratoArrayList.get(position).getData());
         //NumberFormat numberFormat = NumberFormat.getCurrencyInstance().
 
+//        if (position == 0) {
+//            extratoViewHolder.extratoDescricao.setText(extrato.getDescricao());
+//            //extratoViewHolder.extratoValor.setText(String.format(String.valueOf(extrato.getValor()), decimalFormat));
+//            extratoViewHolder.extratoValor.setText(String.valueOf(extrato.getValor()));
+//            extratoViewHolder.extratoValor.setTextColor(Color.BLACK);
+//            //extratoViewHolder.extratoValor.set
+//            return;
+//        }
+
         if (extrato.getTipoTransacao().equalsIgnoreCase("V")) {
             extratoViewHolder.extratoDescricao.setText("Compra");
             //extratoViewHolder.extratoValor.setText(String.format(String.valueOf(extrato.getValor()), decimalFormat));
