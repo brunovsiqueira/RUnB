@@ -16,7 +16,6 @@ public class FormatterString {
 
 
     public static String formatDate(String date){
-        Log.d(FormatterString.class.getSimpleName(), date);
         String[] result = date.split("-");
         return result[2] + "/" + result[1] + "/" + result[0]; // DD/MM/YYYY
     }

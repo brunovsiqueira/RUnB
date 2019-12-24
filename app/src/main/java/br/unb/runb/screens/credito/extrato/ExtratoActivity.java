@@ -1,6 +1,8 @@
 package br.unb.runb.screens.credito.extrato;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -13,11 +15,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +52,11 @@ public class ExtratoActivity extends AppCompatActivity {
         findViewItems();
         getExtrato();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setAutoMeasureEnabled(false);
+
+        recyclerView.setLayoutManager(layoutManager);
+
         if (getIntent().getStringExtra("saldo") != null) {
             textSaldo.setText(getIntent().getStringExtra("saldo"));
         }
@@ -60,14 +73,21 @@ public class ExtratoActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void getExtrato() {
-        Calendar calendar = Calendar.getInstance();
+        Date date = new Date();
+        Date dateMinusYears = new Date();
+        dateMinusYears.setYear(dateMinusYears.getYear() - 3);
+//        LocalDate localDate = LocalDate.now();
+//        LocalDate localDateMinusYear = localDate.minusYears(3);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 //        extratoArrayList.add(new Extrato(Double.valueOf(getIntent().getStringExtra("saldo")), "Seu saldo", "Hoje"));
 
         AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/extrato?access_token={access_token}&filter={filter}")
                 .addPathParameter("id", User.getInstance().getMatricula())
                 .addPathParameter("access_token", User.getInstance().getAccessToken())
-                .addPathParameter("filter","\"{\"dataInicio\":\"01-01-2014\", \"dataFim\":\"02-12-2019\"}\"") //TODO: user escolhe a data, ou colocar nos últimos 3 anos (?)
+                .addPathParameter("filter","\"{\"dataInicio\":" + formatter.format(dateMinusYears) + ", \"dataFim\":" + formatter.format(date) + "}\"") //TODO: user escolhe a data, ou colocar nos últimos 3 anos (?)
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
@@ -92,10 +112,11 @@ public class ExtratoActivity extends AppCompatActivity {
 
                                 Calendar calendar = getCalendarFromString(data);
 
-
-                                extratoArrayList.add(new Extrato(jsonObject.getString("tipoTransacao"),
-                                                                 jsonObject.getDouble("valorRecebido"),
-                                                                  descricao, data[0], calendar));
+                                if (jsonObject.getDouble("valorRecebido") > 0) {
+                                    extratoArrayList.add(new Extrato(jsonObject.getString("tipoTransacao"),
+                                            jsonObject.getDouble("valorRecebido"),
+                                            descricao, data[0], calendar));
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
