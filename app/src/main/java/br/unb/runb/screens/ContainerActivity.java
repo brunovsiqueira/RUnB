@@ -11,11 +11,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import java.util.Map;
+
 import br.unb.runb.R;
 import br.unb.runb.screens.avaliar.AvaliarFragment;
 import br.unb.runb.screens.cardapio.CardapioFragment;
 import br.unb.runb.screens.credito.CreditoFragment;
 import br.unb.runb.screens.menu.MenuFragment;
+import br.unb.runb.util.UiFunctions;
 
 public class ContainerActivity extends AppCompatActivity {
 
@@ -35,6 +38,11 @@ public class ContainerActivity extends AppCompatActivity {
         instantiateFragments();
         addFragments();
         findViewItems();
+
+        Map<String,String> notificationDataMap = (Map<String, String>) getIntent().getSerializableExtra("notification_data");
+        if (notificationDataMap != null) {
+            UiFunctions.showDilalog(notificationDataMap.get("body"), this).show();
+        }
 
         if (getIntent().getBooleanExtra("token_expired", false)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

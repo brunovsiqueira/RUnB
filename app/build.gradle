@@ -34,6 +34,9 @@ dependencies {
     implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.1'
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
 
+    //Segmented Control
+    implementation 'info.hoang8f:android-segmented:1.0.6'
+
     //Barcode genrator
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
