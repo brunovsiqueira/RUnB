@@ -26,8 +26,10 @@ import java.text.NumberFormat;
 import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
 import br.unb.runb.models.User;
+import br.unb.runb.screens.credito.CreditoActivity;
 import br.unb.runb.util.FormatterString;
 import br.unb.runb.util.Mask;
+import br.unb.runb.util.UiFunctions;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
@@ -41,6 +43,7 @@ public class PaymentActivity extends BasicActvity {
     private View takePicture;
     private Button paymentButton;
     private EditText textAmount;
+    private String paymentId;
 
     public JsonObject cardObject = new JsonObject();
 
@@ -48,29 +51,34 @@ public class PaymentActivity extends BasicActvity {
     private boolean isServerWoking = false;
 
     private final int MY_SCAN_REQUEST_CODE = 0;
+    private final String merchantId = "448fcb7c-6670-4493-995d-1863671899ee";
+    private final String merchantKey = "ZCMHARNFVOTJNWILJADFAZJUCOQBBBKVRSNRWCQU";
     private String cardType;
+    //private ProgressDialog pd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        cardType = getIntent().getStringExtra("card_type");
-//        OkHttpClient okHttpClient = new OkHttpClient() .newBuilder()
-//                .addNetworkInterceptor(new StethoInterceptor())
-//                .build();
-        //AndroidNetworking.initialize(getApplicationContext());
+        if (getIntent().getStringExtra("card_type") == null) {
+            cardType = "CreditCard";
+        } else {
+            cardType = getIntent().getStringExtra("card_type");
+        }
 
+
+        findViewItems();
         //chamar endpoint de venda passando valor 0
         //se der certo, setar flag pra true
+        postSell(0, null);
+        hardcodedFillView();
 
         //clicou no botão de pagamento, se flag for false, exibir mensagem de tente novamente mais tarde
         //se flag for true, chamar novamente endpoint de venda com valor 0.
-        //se a resposta for de sucesso, chamar api de pagamento com valor setado pelo user. Else, mensagem de erro
+        //se a resposta for de sucesso, chamar api de pagamento com valor setado pelo user. Else, mensagem de erro do servidor
         //se a api de pagamento responder com sucesso, chamar o endpoint de venda com o valor setado pelo user. Else, mensagem de cartao invalido
-        //Se ainda assim o endpoint de venda der errado, cancelar a venda via api
-
-        findViewItems();
+        //Se ainda assim o endpoint de venda der errado, cancelar a venda via api (estornar), e apresentasr mensagem de erro
     }
 
     private void findViewItems() {
@@ -90,16 +98,99 @@ public class PaymentActivity extends BasicActvity {
         cardNumber.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_NUMBER, cardNumber));
         cardDate.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_DATE, cardDate));
         textAmount.addTextChangedListener(amountChangedListener);
+        //pd = new ProgressDialog(PaymentActivity.this);
 
         //HardcodedFillView();
 
     }
 
-    private void HardcodedFillView() {
-        cardNumber.setText("1234123412341231");
+    private void postSell(final double value, final ProgressDialog pd) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("guiche", "Guiche Aplicativo");
+            jsonObject.put("valor", value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AndroidNetworking
+                .post("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/201170624/venda?access_token={access_token}")
+                .addJSONObjectBody(jsonObject)
+                .addPathParameter("access_token", User.getInstance().getAccessToken())
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            double valor = response.getDouble("valor");
+                            if (valor == value) {
+                                isServerWoking = true;
+                                if (value == 0) { //primeira chamada
+
+                                } else if (value > 0) { //segunda chamada, com valor real
+                                    clearFields();
+                                    UiFunctions.showDilalog("Seu pagamento no valor de R$" + value  + " foi realizado com sucesso!", PaymentActivity.this).show();
+                                    pd.dismiss();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (pd != null) {
+                            pd.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        isServerWoking = false;
+                        if (pd != null) {
+                            pd.dismiss();
+                        }
+                        if (value > 0) {
+                            //TODO: CHAMAR REQUEST DE ESTORNO SE VALOR > 0 USANDO paymentId
+
+                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            if (jsonObject.getString("error").equalsIgnoreCase("access_denied")) {
+                                //token expirou
+                                UiFunctions.tokenExpired(PaymentActivity.this);
+                                finish();
+                            } else if (jsonObject.getString("error").equalsIgnoreCase("validation")) {
+                                UiFunctions.showDilalog("Erro no servidor", PaymentActivity.this).show();
+                            }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        //VER O ERRO E O QUE FAZER, ACCESS DENIED...
+
+
+                        if (value > 0) {
+                            //TODO: Add request de estorno (cancelamento)
+                        }
+                    }
+                });
+
+    }
+
+    private void clearFields() {
+        textAmount.setText("0.00");
+        cardNumber.setText("");
+        cardName.setText("");
+        securityNumber.setText("");
+        cardDate.setText("");
+    }
+
+    private void hardcodedFillView() {
+        cardNumber.setText("0000000000000001");
         cardName.setText("Nome Teste");
         securityNumber.setText("123");
-        cardDate.setText("12/2018");
+        cardDate.setText("12/2020");
     }
 
     private JSONObject createPaymentJson() {
@@ -128,7 +219,7 @@ public class PaymentActivity extends BasicActvity {
             card.put("Holder", cardName.getText().toString());
             card.put("ExpirationDate", cardDate.getText().toString());
             card.put("SecurityCode", securityNumber.getText().toString());
-            card.put("Brand", "Visa"); //TODO: Add correct brand (spinner)
+            card.put("Brand", "Visa"); //TODO: Add correct brand (spinner?)
             if (cardType.equalsIgnoreCase("debitCard")) {
                 payment.put("DebitCard", card);
             } else if  (cardType.equalsIgnoreCase("CreditCard")) {
@@ -143,6 +234,57 @@ public class PaymentActivity extends BasicActvity {
             e.printStackTrace();
         }
         return completeJson;
+    }
+
+    private void makePaymentRequest() {
+        JSONObject jsonObject = createPaymentJson();
+        final ProgressDialog pd =  new ProgressDialog(this);
+        pd.show(PaymentActivity.this, "Carregando", "Efetuando pagamento...");
+
+
+        AndroidNetworking.post("https://apisandbox.cieloecommerce.cielo.com.br/1/sales")
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("merchantId", merchantId)
+                .addHeaders("merchantKey", merchantKey)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // do anything with response
+                        try {
+                            //Toast.makeText(PaymentActivity.this, response.getJSONObject("Payment").get("ReturnMessage").toString(), Toast.LENGTH_SHORT).show();
+                            JSONObject jsonObject = response.getJSONObject("Payment");
+                            if (jsonObject.get("ReturnMessage").toString().contains("Successful")) {
+                                //TODO: call post sell with "amount" value em reais (/100)
+                                paymentId = jsonObject.getString("PaymentId");
+                                postSell(jsonObject.getInt("Amount")/100, pd);
+                            } else {
+                                pd.dismiss();
+                                UiFunctions.showDilalog("Erro ao realizar pagamento", getBaseContext()).show();
+                                //TODO: Mensagem de erro no pagamento
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            pd.dismiss();
+                        }
+
+
+                        //finish();
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        pd.dismiss();
+                        if (error.getErrorCode() != 0) {
+                            // get parsed error object (If ApiError is your class)
+
+                        } else {
+                            // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        }
+                    }
+                });
     }
 
     public void updateView(String cardNumber, String cardName, String cardDate) {
@@ -234,12 +376,6 @@ public class PaymentActivity extends BasicActvity {
         return Integer.valueOf(date.substring(0, 2));
     }
 
-    private int getYearOfFormattedDate(String date) {
-        String year = date.substring(3, 5);
-
-        return Integer.valueOf(year);
-    }
-
     private int getYear(String date) {
         String year = date.substring(5, 7);
 
@@ -282,50 +418,13 @@ public class PaymentActivity extends BasicActvity {
         @Override
         public void onClick(View v) {
             if (validates()) {
-                //createJsonCard();
-                JSONObject jsonObject = createPaymentJson();
+                if (isServerWoking) {
+                    makePaymentRequest();
 
-                final ProgressDialog pd = new ProgressDialog(PaymentActivity.this);
-                pd.show(PaymentActivity.this, "Carregando", "Efetuando pagamento...");
-
-
-
-                AndroidNetworking.post("https://apisandbox.cieloecommerce.cielo.com.br/1/sales")
-                        .addJSONObjectBody(jsonObject)
-                        .addHeaders("merchantId", "448fcb7c-6670-4493-995d-1863671899ee")
-                        .addHeaders("merchantKey", "ZCMHARNFVOTJNWILJADFAZJUCOQBBBKVRSNRWCQU")
-                        .setPriority(Priority.HIGH)
-                        .build()
-                        .getAsJSONObject(new JSONObjectRequestListener() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                // do anything with response
-                                try {
-                                    //Toast.makeText(PaymentActivity.this, response.getJSONObject("Payment").get("ReturnMessage").toString(), Toast.LENGTH_SHORT).show();
-                                    if (response.getJSONObject("Payment").get("ReturnMessage").toString().contains("Successful")) {
-                                        //Toast.makeText(PaymentActivity.this, "Pagamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
-                                        //TODO: SHOW SUCCESS DIALOG
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                                pd.dismiss();
-                                finish();
-                            }
-                            @Override
-                            public void onError(ANError error) {
-                                // handle error
-                                pd.dismiss();
-                                if (error.getErrorCode() != 0) {
-                                    // get parsed error object (If ApiError is your class)
-
-                                } else {
-                                    // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                }
-                            }
-                        });
-
+                }
+                else {
+                    UiFunctions.showDilalog("Erro no servidor. Tente novamente mais tarde.", getBaseContext()).show();
+                }
             }
         }
     };
@@ -340,9 +439,6 @@ public class PaymentActivity extends BasicActvity {
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true); // default: false
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
-
-            // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-            //startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);
         }
     };
 

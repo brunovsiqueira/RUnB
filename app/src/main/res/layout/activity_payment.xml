@@ -98,10 +98,11 @@
 
         <EditText
             android:id="@+id/payment_card_date"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:hint="Data de vencimento"
+            android:layout_marginRight="120dp"
+            android:hint="Data de vencimento (DD/AAAA)"
             android:inputType="number"
             android:textAlignment="center"
             android:textColorHint="@color/light_gray"
