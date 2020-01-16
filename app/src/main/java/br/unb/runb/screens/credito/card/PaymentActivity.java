@@ -151,7 +151,7 @@ public class PaymentActivity extends BasicActvity {
                         }
                         if (value > 0) {
                             //TODO: CHAMAR REQUEST DE ESTORNO SE VALOR > 0 USANDO paymentId
-
+                            cancelSell();
                         }
                         try {
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
@@ -166,16 +166,30 @@ public class PaymentActivity extends BasicActvity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-                        //VER O ERRO E O QUE FAZER, ACCESS DENIED...
-
-
-                        if (value > 0) {
-                            //TODO: Add request de estorno (cancelamento)
-                        }
                     }
                 });
 
+    }
+
+    private void cancelSell() {
+        AndroidNetworking.put("https://apisandbox.cieloecommerce.cielo.com.br/1/sales/{PaymentId}/void")
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("merchantId", merchantId)
+                .addHeaders("merchantKey", merchantKey)
+                .addPathParameter("PaymentId", paymentId)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        cancelSell();
+                    }
+                });
     }
 
     private void clearFields() {
@@ -206,7 +220,6 @@ public class PaymentActivity extends BasicActvity {
             payment.put("Type", cardType);
             payment.put("Amount", Integer.parseInt(FormatterString.onlyDigits(textAmount.getText().toString())));
             payment.put("Provider", "Simulado"); //TODO: Simulado apenas no Sandbox
-            payment.put("ReturnUrl", "https://www.cielo.com.br");
             payment.put("Installments", 1);
             payment.put("Currency","BRL");
             if (cardType.equalsIgnoreCase("debitCard")) {
@@ -226,7 +239,7 @@ public class PaymentActivity extends BasicActvity {
                 payment.put("CreditCard", card);
             }
 
-            completeJson.put("MerchantOrderId", User.getInstance().getId()); //TODO: generate correctly (Tem que ser unico por pedido ou por pessoa?)
+            completeJson.put("MerchantOrderId", String.valueOf(Math.round(Double.valueOf(User.getInstance().getId()) * Math.random()))); //TODO: generate correctly (Tem que ser unico por pedido ou por pessoa?)
             completeJson.put("Customer", customer);
             completeJson.put("Payment", payment);
 
