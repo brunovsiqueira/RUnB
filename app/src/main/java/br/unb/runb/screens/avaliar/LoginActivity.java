@@ -1,18 +1,9 @@
-package br.unb.runb.screens.credito;
+package br.unb.runb.screens.avaliar;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +13,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.unb.runb.R;
 import br.unb.runb.models.User;
-import br.unb.runb.screens.avaliar.LoginActivity;
+import br.unb.runb.screens.credito.CreditoActivity;
 import br.unb.runb.util.UiFunctions;
 import im.delight.android.webview.AdvancedWebView;
 
-
-public class CreditoFragment extends Fragment {
+public class LoginActivity extends AppCompatActivity {
 
     private View view;
     private TextView toolbarTitle;
@@ -53,18 +46,12 @@ public class CreditoFragment extends Fragment {
     private final String MY_CLIENT_SECRET = "CPD", MY_CLIENT_ID = "110";
     private Uri MY_REDIRECT_URI = Uri.parse("/ruapp/index.html");
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_credito, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        //SE TIVER LOGADO, IR PARA TELA DE CRÉDITOS
-
-        //SE NAO, AGUARDAR LOGIN
+        setContentView(R.layout.fragment_credito);
         findViewItems(view);
-        //verifyIfUserIsLoggedIn();
-
-        return view;
 
     }
 
@@ -78,20 +65,6 @@ public class CreditoFragment extends Fragment {
 
         loginButton.setOnClickListener(loginClickListener);
         toolbarTitle.setText("Login");
-
-    }
-
-    private void verifyIfUserIsLoggedIn() {
-
-        //verify if token has expired. If yes, request a new one
-
-        progressBar.setVisibility(View.VISIBLE);
-        if (User.getInstance() != null) {
-            //if user.getInstance exists, then send user to next activity
-            startActivity(new Intent(getContext(), CreditoActivity.class));
-        } else {
-            //else, wait for login
-        }
 
     }
 
@@ -141,15 +114,11 @@ public class CreditoFragment extends Fragment {
                                     User.getInstance().setCodigo(jsonObject.getString("codigo"));
                                     User.getInstance().setMatricula(jsonObject.getString("login"));
                                     User.getInstance().setName(jsonObject.getString("name"));
-                                    SharedPreferences mPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = mPrefs.edit();
-                                    editor.putString("user_name", jsonObject.getString("name"));
-                                    editor.commit();
                                     User.getInstance().setEmail(jsonObject.getString("email"));
                                     User.getInstance().setActive(jsonObject.getBoolean("active"));
                                     User.getInstance().setCpf(jsonObject.getString("cpf"));
                                 } else {
-                                    Dialog dialog = UiFunctions.showDilalog("Usuário sem vínculo ativo com a UnB", getContext());
+                                    Dialog dialog = UiFunctions.showDilalog("Usuário sem vínculo ativo com a UnB", LoginActivity.this);
                                     dialog.show();
                                 }
                             } catch (JSONException e) {
@@ -160,20 +129,18 @@ public class CreditoFragment extends Fragment {
                             progressBar.setVisibility(View.GONE);
 
                             if (User.getInstance().isActive()) {
-                                startActivity(new Intent(getActivity(), CreditoActivity.class));
-                                Toast.makeText(getContext(), "Bem vindo(a), " + User.getInstance().getName(), Toast.LENGTH_LONG).show();
+                                finish();
+
                             }
                         }
 
                         @Override
                         public void onError(ANError anError) {
                             progressBar.setVisibility(View.GONE);
-                            UiFunctions.showDilalog("Erro no servidor", getContext()).show();
+                            UiFunctions.showDilalog("Erro no servidor", LoginActivity.this).show();
                         }
                     });
 
         }
     };
-
-
 }
