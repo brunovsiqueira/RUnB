@@ -115,9 +115,11 @@ public class PaymentActivity extends BasicActvity {
         }
 
         AndroidNetworking
-                .post("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/201170624/venda?access_token={access_token}")
+                .post("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/venda")
                 .addJSONObjectBody(jsonObject)
-                .addPathParameter("access_token", User.getInstance().getAccessToken())
+                .addHeaders("Authorization", "Bearer " + User.getInstance().getAccessToken())
+                .addPathParameter("id", User.getInstance().getId())
+//                .addPathParameter("access_token", User.getInstance().getAccessToken())
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {

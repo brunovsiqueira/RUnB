@@ -49,8 +49,14 @@ public class CreditoActivity extends BasicActvity {
         setContentView(R.layout.activity_credito);
 
         findViewItems();
-        requestSaldo();
+        //requestSaldo();
         requestGrupo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestSaldo();
     }
 
     private void findViewItems() {
@@ -90,7 +96,7 @@ public class CreditoActivity extends BasicActvity {
                         progressSaldo.setVisibility(View.GONE);
                         try {
                             if (response.has("valor")) {
-                                valorSaldo.setText("R$ " + String.valueOf(response.getDouble("valor")));
+                                valorSaldo.setText("R$ " + String.valueOf(response.getDouble("valor")).replace(".", ","));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -111,10 +117,11 @@ public class CreditoActivity extends BasicActvity {
     }
 
     private void requestGrupo() {
-        AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/grupo?access_token={access_token}")
+
+        AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/grupo")
                 .addPathParameter("id", User.getInstance().getId())
-                .addPathParameter("access_token", User.getInstance().getAccessToken())
-                //.addHeaders("Authorization")
+                //.addPathParameter("access_token", User.getInstance().getAccessToken())
+                .addHeaders("Authorization", "Bearer " + User.getInstance().getAccessToken())
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -125,6 +132,9 @@ public class CreditoActivity extends BasicActvity {
                             nomeRefeicao.setText("O valor da refeição para o " + descricao[2] + " é de");
                             valorRefeicao.setText("R$ " + response.getString("valor"));
                             textGrupo.setText("Você pertence ao " + descricao[0] + " " + descricao [1]);
+                            if (Integer.valueOf(descricao[1]) == 1) {
+                                cardButton.setVisibility(View.GONE);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

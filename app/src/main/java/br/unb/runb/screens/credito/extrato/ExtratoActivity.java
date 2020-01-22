@@ -113,9 +113,10 @@ public class ExtratoActivity extends AppCompatActivity {
 
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-        AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/extrato?access_token={access_token}&filter={filter}")
+        AndroidNetworking.get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/extrato?filter={filter}")
+                .addHeaders("Authorization", "Bearer " + User.getInstance().getAccessToken())
                 .addPathParameter("id", User.getInstance().getMatricula())
-                .addPathParameter("access_token", User.getInstance().getAccessToken())
+//                .addPathParameter("access_token", User.getInstance().getAccessToken())
                 .addPathParameter("filter","\"{\"dataInicio\":" + formatter.format(dateMinusTime) + ", \"dataFim\":" + formatter.format(date) + "}\"") //TODO: user escolhe a data, ou colocar nos últimos 3 anos (?)
                 .setPriority(Priority.HIGH)
                 .build()

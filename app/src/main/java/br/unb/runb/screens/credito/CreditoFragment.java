@@ -168,7 +168,12 @@ public class CreditoFragment extends Fragment {
                         @Override
                         public void onError(ANError anError) {
                             progressBar.setVisibility(View.GONE);
-                            UiFunctions.showDilalog("Erro no servidor", getContext()).show();
+                            if (anError.getErrorCode() == 401) {
+                                UiFunctions.showDilalog("Matrícula e/ou senha incorretas", getContext()).show();
+                            } else {
+                                UiFunctions.showDilalog("Erro no servidor", getContext()).show();
+                            }
+
                         }
                     });
 

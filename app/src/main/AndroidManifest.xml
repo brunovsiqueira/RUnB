@@ -56,6 +56,16 @@
         <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/logo_app" />
         <meta-data   android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/colorPrimary" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="br.unb.runb.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>
+
     </application>
 
 </manifest>

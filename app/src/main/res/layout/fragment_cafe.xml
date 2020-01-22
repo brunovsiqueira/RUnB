@@ -26,13 +26,32 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/refeicao_nome"
+                android:layout_marginLeft="32dp"
+                android:layout_centerVertical="true"
+                android:text="22/01/2020"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:id="@+id/share_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/share_icon" />
+                android:padding="4dp"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/share_icon"
+                    android:layout_marginRight="16dp"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="16dp"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

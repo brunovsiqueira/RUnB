@@ -70,9 +70,10 @@ public class AcessoActivity extends AppCompatActivity {
     private void getBarcodeData() {
 
         AndroidNetworking
-                .get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/codigo?access_token={access_token}")
+                .get("https://homologaservicos.unb.br/dados/administrativo/ru/pessoa/{id}/codigo")
+                .addHeaders("Authorization", "Bearer " + User.getInstance().getAccessToken())
                 .addPathParameter("id", User.getInstance().getId())
-                .addPathParameter("access_token", User.getInstance().getAccessToken())
+                //.addPathParameter("access_token", User.getInstance().getAccessToken())
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsString(new StringRequestListener() {
