@@ -44,6 +44,7 @@
         <activity android:name=".screens.credito.extrato.ExtratoActivity"/>
         <activity android:name=".screens.credito.AcessoActivity"/>
         <activity android:name=".screens.menu.NotificationActivity"/>
+        <activity android:name=".screens.menu.RUInfoActivity"/>
 
         <service
             android:name=".services.MyFirebaseMessagingService"

@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+
 import br.unb.runb.R;
 import br.unb.runb.screens.cardapio.refeicoes.AlmocoFragment;
 import br.unb.runb.screens.cardapio.refeicoes.CafeFragment;
@@ -33,6 +35,10 @@ public class CardapioFragment extends Fragment {
     private ImageView arrowLeft;
     private int currentItem = 1;
 
+    AlmocoFragment almocoFragment;
+    JantarFragment jantarFragment;
+    CafeFragment cafeFragment;
+
     String[] dias = new String[]{"Seg - 20 JAN","Ter - 21 JAN","Qua - 22 JAN","Qui - 23 JAN","Sex - 24 JAN"};
     String[] refeicoes = new String[]{"Café da manhã", "Almoço", "Janta"};
     String[] campusArray = new String[]{"Darcy Ribeiro", "Gama", "Planaltina", "Ceilândia", "Fazenda"};
@@ -48,7 +54,8 @@ public class CardapioFragment extends Fragment {
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) view.findViewById(R.id.viewpager);
-        pagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
+        pagerAdapter = new ScreenSlidePagerAdapter(requireFragmentManager(), BaseTransientBottomBar.Behavior.STATE_SETTLING);
+        //mPager.setOffscreenPageLimit(3);
         mPager.setAdapter(pagerAdapter);
         mPager.setCurrentItem(currentItem);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -89,6 +96,15 @@ public class CardapioFragment extends Fragment {
 
         return view;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //mPager.setOffscreenPageLimit(3);
+//        pagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), BaseTransientBottomBar.Behavior.STATE_SETTLING);
+//        mPager.setAdapter(pagerAdapter);
+        //mPager.setCurrentItem(currentItem);
     }
 
     private void findViewItems(View v) {
@@ -136,26 +152,21 @@ public class CardapioFragment extends Fragment {
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-        AlmocoFragment almocoFragment;
-        JantarFragment jantarFragment;
-        CafeFragment cafeFragment;
 
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-            almocoFragment = new AlmocoFragment();
-            jantarFragment = new JantarFragment();
-            cafeFragment = new CafeFragment();
+        public ScreenSlidePagerAdapter(@NonNull FragmentManager fm, int behavior) {
+            super(fm, behavior);
+
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return cafeFragment;
+                    return new CafeFragment();
                 case 1:
-                    return almocoFragment;
+                    return new AlmocoFragment();
                 case 2:
-                    return jantarFragment;
+                    return new JantarFragment();
 
             }
             return new AlmocoFragment();

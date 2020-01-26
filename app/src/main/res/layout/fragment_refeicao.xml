@@ -25,6 +25,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
                 android:text="Almoço"
+                android:layout_centerVertical="true"
                 android:textColor="@color/white"/>
 
             <TextView
@@ -45,12 +46,9 @@
                 android:layout_centerVertical="true">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/share_icon"
-                    android:layout_marginRight="16dp"
-                    android:paddingLeft="32dp"
-                    android:paddingRight="16dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/share_icon" />
 
             </LinearLayout>
 

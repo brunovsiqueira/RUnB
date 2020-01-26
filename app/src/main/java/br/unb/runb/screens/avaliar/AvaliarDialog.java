@@ -28,10 +28,12 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import br.unb.runb.R;
+import br.unb.runb.models.Review;
 import br.unb.runb.models.User;
 import br.unb.runb.util.UiFunctions;
 
@@ -46,13 +48,15 @@ public class AvaliarDialog extends DialogFragment {
     String refeicao;
     private String userName;
     private String comment;
+    private ArrayList<Review> reviewList = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String [] groupArray = {"Café da Manhã", "Almoço", "Jantar"};
 
-    public AvaliarDialog(String comment) {
+    public AvaliarDialog(String comment, ArrayList<Review> reviewList) {
         this.comment = comment;
+        this.reviewList = reviewList;
     }
 
     @Override
@@ -100,10 +104,11 @@ public class AvaliarDialog extends DialogFragment {
     private void storeAtFirestore() {
         Map<String, Object> avaliacaoMap = new HashMap<>();
         avaliacaoMap.put("comentario", textAvaliacao.getText());
-        avaliacaoMap.put("user", User.getInstance().getName());
+        avaliacaoMap.put("user", textNome.getText().toString());
         avaliacaoMap.put("refeicao", refeicao);
         avaliacaoMap.put("timestamp", FieldValue.serverTimestamp());
         avaliacaoMap.put("rate", ratingBar.getRating());
+
 
         db.collection("reviews").document()
                 .set(avaliacaoMap)
@@ -111,8 +116,8 @@ public class AvaliarDialog extends DialogFragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            dismiss();
                             UiFunctions.showDilalog("Avaliação realizada com sucesso!", getContext()).show();
+                            dismiss();
                             //TODO: add review to the list
                         }
                     }

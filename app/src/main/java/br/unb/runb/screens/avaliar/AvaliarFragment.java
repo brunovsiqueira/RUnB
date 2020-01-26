@@ -66,7 +66,7 @@ public class AvaliarFragment extends Fragment {
             public void onClick(View view) {
                 if (editAvaliar.getText().toString().length() > 2) {
                     AvaliarDialog avaliarDialog;
-                    avaliarDialog = new AvaliarDialog(editAvaliar.getText().toString());
+                    avaliarDialog = new AvaliarDialog(editAvaliar.getText().toString(), reviewList);
                     avaliarDialog.show(getFragmentManager(), "");
                 } else {
                     Toast.makeText(getContext(), "A avaliação precisa ser mais longa", Toast.LENGTH_SHORT).show();
@@ -102,7 +102,8 @@ public class AvaliarFragment extends Fragment {
 
                             }
 
-                            Collections.reverse(reviewList);
+                            //Collections.reverse(reviewList);
+                            Collections.sort(reviewList);
                             showOnRecyclerView();
 
                         } else {

@@ -4,7 +4,7 @@ import com.google.firebase.firestore.FieldValue;
 
 import java.util.Date;
 
-public class Review {
+public class Review implements Comparable<Review>{
 
     private String comentario;
     private String user;
@@ -38,5 +38,11 @@ public class Review {
 
     public double getRate() {
         return rate;
+    }
+
+
+    @Override
+    public int compareTo(Review review) {
+        return review.getDate().compareTo(this.date);
     }
 }

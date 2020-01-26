@@ -124,6 +124,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/container_ru_info"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"
@@ -170,6 +171,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/container_app_info"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"

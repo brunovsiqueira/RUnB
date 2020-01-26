@@ -49,14 +49,13 @@ public class CreditoActivity extends BasicActvity {
         setContentView(R.layout.activity_credito);
 
         findViewItems();
-        //requestSaldo();
+        requestSaldo();
         requestGrupo();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        requestSaldo();
     }
 
     private void findViewItems() {
@@ -130,7 +129,7 @@ public class CreditoActivity extends BasicActvity {
                         try {
                             String[] descricao = response.getString("descricao").split(" ");
                             nomeRefeicao.setText("O valor da refeição para o " + descricao[2] + " é de");
-                            valorRefeicao.setText("R$ " + response.getString("valor"));
+                            valorRefeicao.setText("R$ " + response.getString("valor").replace(".", ","));
                             textGrupo.setText("Você pertence ao " + descricao[0] + " " + descricao [1]);
                             if (Integer.valueOf(descricao[1]) == 1) {
                                 cardButton.setVisibility(View.GONE);

@@ -15,6 +15,7 @@ class ReviewViewHolder extends RecyclerView.ViewHolder {
     RatingBar ratingBar;
     TextView textReview;
     TextView textDate;
+    TextView textRefeicao;
 
     public ReviewViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,5 +24,6 @@ class ReviewViewHolder extends RecyclerView.ViewHolder {
         ratingBar = itemView.findViewById(R.id.review_ratingbar);
         textReview = itemView.findViewById(R.id.review_review);
         textDate = itemView.findViewById(R.id.review_data);
+        textRefeicao = itemView.findViewById(R.id.item_refeicao);
     }
 }

@@ -10,6 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +41,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="50dp"
             android:hint="Informe o valor em reais"
-            android:inputType="number"
+            android:inputType="numberDecimal"
+
             android:textColorHint="@color/light_gray"
             android:textSize="14sp"
             android:layout_marginBottom="16dp"/>
@@ -54,6 +62,7 @@
                 android:textSize="17.1sp" />
 
             <View
+                android:visibility="gone"
                 android:id="@+id/payment_card_photo_container"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -63,6 +72,7 @@
                 android:src="@drawable/camera" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/payment_card_photo"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

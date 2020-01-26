@@ -1,6 +1,7 @@
 package br.unb.runb.screens.credito.extrato;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import info.hoang8f.android.segmented.SegmentedGroup;
 public class ExtratoActivity extends AppCompatActivity {
 
     private TextView toolbarTitle;
+    private TextView textVazio;
     private RecyclerView recyclerView;
     private RadioButton rbUmAno;
     private RadioButton rbDoisAnos;
@@ -80,6 +82,7 @@ public class ExtratoActivity extends AppCompatActivity {
         rbDoisAnos = findViewById(R.id.rb_dois_anos);
         rbTresAnos = findViewById(R.id.rb_tres_anos);
         segmentedGroup = findViewById(R.id.segmented_time);
+        textVazio = findViewById(R.id.text_vazio);
         contentLoadingProgressBar = findViewById(R.id.progress_bar);
 
         toolbarTitle.setText("Extrato");
@@ -151,6 +154,12 @@ public class ExtratoActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
+                        }
+
+                        if (extratoArrayList.size() == 0) {
+                            textVazio.setVisibility(View.VISIBLE);
+                        } else {
+                            textVazio.setVisibility(View.GONE);
                         }
 
                         Collections.sort(extratoArrayList);

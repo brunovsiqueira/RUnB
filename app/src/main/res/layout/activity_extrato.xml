@@ -175,6 +175,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
+    <TextView
+        android:id="@+id/text_vazio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não há histórico de extrato para esta seleção..."
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/extrato_reyclerview"
         android:layout_width="match_parent"

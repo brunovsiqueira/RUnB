@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import br.unb.runb.R;
 import br.unb.runb.basic.BasicActvity;
 import br.unb.runb.models.User;
 import br.unb.runb.screens.credito.CreditoActivity;
+import br.unb.runb.util.DecimalDigitInputFilter;
 import br.unb.runb.util.FormatterString;
 import br.unb.runb.util.Mask;
 import br.unb.runb.util.UiFunctions;
@@ -44,6 +47,7 @@ public class PaymentActivity extends BasicActvity {
     private Button paymentButton;
     private EditText textAmount;
     private String paymentId;
+    private ProgressBar progressBar;
 
     public JsonObject cardObject = new JsonObject();
 
@@ -54,6 +58,7 @@ public class PaymentActivity extends BasicActvity {
     private final String merchantId = "448fcb7c-6670-4493-995d-1863671899ee";
     private final String merchantKey = "ZCMHARNFVOTJNWILJADFAZJUCOQBBBKVRSNRWCQU";
     private String cardType;
+    //ProgressDialog pd;
     //private ProgressDialog pd;
 
     @Override
@@ -71,7 +76,7 @@ public class PaymentActivity extends BasicActvity {
         findViewItems();
         //chamar endpoint de venda passando valor 0
         //se der certo, setar flag pra true
-        postSell(0, null);
+        postSell(0);
         hardcodedFillView();
 
         //clicou no botão de pagamento, se flag for false, exibir mensagem de tente novamente mais tarde
@@ -91,20 +96,20 @@ public class PaymentActivity extends BasicActvity {
         paymentButton = findViewById(R.id.payment_card_pay);
         cardDate = findViewById(R.id.payment_card_date);
         textAmount = findViewById(R.id.payment_amount);
+        progressBar = findViewById(R.id.progress_bar);
 
         toolbarTitle.setText("Comprar créditos");
         takePicture.setOnClickListener(pictureClickListener);
         paymentButton.setOnClickListener(paymentClickListener);
         cardNumber.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_NUMBER, cardNumber));
         cardDate.addTextChangedListener(Mask.insert(Mask.MaskType.CARD_DATE, cardDate));
-        textAmount.addTextChangedListener(amountChangedListener);
-        //pd = new ProgressDialog(PaymentActivity.this);
+//        textAmount.addTextChangedListener(amountChangedListener);
+        textAmount.setFilters(new InputFilter[] {new DecimalDigitInputFilter(4,2)});
 
-        //HardcodedFillView();
 
     }
 
-    private void postSell(final double value, final ProgressDialog pd) {
+    private void postSell(final double value) {
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -134,23 +139,19 @@ public class PaymentActivity extends BasicActvity {
                                 } else if (value > 0) { //segunda chamada, com valor real
                                     clearFields();
                                     UiFunctions.showDilalog("Seu pagamento no valor de R$" + value  + " foi realizado com sucesso!", PaymentActivity.this).show();
-                                    pd.dismiss();
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if (pd != null) {
-                            pd.dismiss();
-                        }
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onError(ANError anError) {
                         isServerWoking = false;
-                        if (pd != null) {
-                            pd.dismiss();
-                        }
+                        progressBar.setVisibility(View.GONE);
                         if (value > 0) {
                             //TODO: CHAMAR REQUEST DE ESTORNO SE VALOR > 0 USANDO paymentId
                             cancelSell();
@@ -253,9 +254,8 @@ public class PaymentActivity extends BasicActvity {
 
     private void makePaymentRequest() {
         JSONObject jsonObject = createPaymentJson();
-        final ProgressDialog pd =  new ProgressDialog(this);
-        pd.show(PaymentActivity.this, "Carregando", "Efetuando pagamento...");
-
+        //pd.show(PaymentActivity.this, "Carregando", "Efetuando pagamento...");
+        progressBar.setVisibility(View.VISIBLE);
 
         AndroidNetworking.post("https://apisandbox.cieloecommerce.cielo.com.br/1/sales")
                 .addJSONObjectBody(jsonObject)
@@ -273,15 +273,15 @@ public class PaymentActivity extends BasicActvity {
                             if (jsonObject.get("ReturnMessage").toString().contains("Successful")) {
                                 //TODO: call post sell with "amount" value em reais (/100)
                                 paymentId = jsonObject.getString("PaymentId");
-                                postSell(jsonObject.getInt("Amount")/100, pd);
+                                postSell(jsonObject.getInt("Amount")/100);
                             } else {
-                                pd.dismiss();
-                                UiFunctions.showDilalog("Erro ao realizar pagamento", getBaseContext()).show();
+                                progressBar.setVisibility(View.GONE);
+                                UiFunctions.showDilalog("Erro ao realizar pagamento", PaymentActivity.this).show();
                                 //TODO: Mensagem de erro no pagamento
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            pd.dismiss();
+                            progressBar.setVisibility(View.GONE);
                         }
 
 
@@ -291,7 +291,9 @@ public class PaymentActivity extends BasicActvity {
                     @Override
                     public void onError(ANError error) {
                         // handle error
-                        pd.dismiss();
+                        progressBar.setVisibility(View.GONE);
+                        UiFunctions.showDilalog("Erro ao realizar pagamento", PaymentActivity.this).show();
+                        //TODO: Tratar códigos de retorno (documentação)
                         if (error.getErrorCode() != 0) {
                             // get parsed error object (If ApiError is your class)
 
@@ -330,7 +332,7 @@ public class PaymentActivity extends BasicActvity {
             isValidated = false;
         }
 
-        if (cardNumber.getText().toString().length() < 15) {
+        if (cardNumber.getText().toString().replaceAll(" ", "").length() < 16) {
             cardNumber.setError(getResources().getString(R.string.register_card_number_error));
             cardNumber.requestFocus();
             cardNumber.setText("");
@@ -438,7 +440,7 @@ public class PaymentActivity extends BasicActvity {
 
                 }
                 else {
-                    UiFunctions.showDilalog("Erro no servidor. Tente novamente mais tarde.", getBaseContext()).show();
+                    UiFunctions.showDilalog("Erro no servidor. Tente novamente mais tarde.", PaymentActivity.this).show();
                 }
             }
         }

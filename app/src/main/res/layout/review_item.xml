@@ -31,15 +31,32 @@
 
     </RelativeLayout>
 
-
-    <RatingBar
-        android:id="@+id/review_ratingbar"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:isIndicator="true"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:layout_marginLeft="16dp"/>
+        android:orientation="horizontal">
+
+        <RatingBar
+            android:id="@+id/review_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:isIndicator="true"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/item_refeicao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Almoço)"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/review_review"

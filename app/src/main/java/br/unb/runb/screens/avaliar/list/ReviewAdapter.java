@@ -49,6 +49,8 @@ public class ReviewAdapter extends RecyclerView.Adapter {
             reviewViewHolder.textDate.setText(sdf.format(date) + " as " + date.getHours() + ":" + minutes);
             reviewViewHolder.ratingBar.setRating((float)review.getRate());
             reviewViewHolder.textReview.setText(review.getComentario());
+            reviewViewHolder.textRefeicao.setText("("+review.getRefeicao()+")");
+
         }
     }
 
